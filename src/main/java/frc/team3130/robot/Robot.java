@@ -1,5 +1,6 @@
 package frc.team3130.robot;
 
+import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.RobotState;
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -13,7 +14,9 @@ import frc.team3130.robot.subsystems.*;
 import frc.team3130.robot.vision.Limelight;
 import frc.team3130.robot.vision.WheelSpeedCalculations;
 
+
 import static frc.team3130.robot.OI.driverGamepad;
+import static frc.team3130.robot.subsystems.Chassis.m_leftMotorFront;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -31,6 +34,7 @@ public class Robot extends TimedRobot {
 
     boolean gettime = true;
     boolean checkif = true;
+
 
 
     /**
@@ -108,9 +112,14 @@ public class Robot extends TimedRobot {
      * the switch structure below with additional strings. If using the
      * SendableChooser make sure to add them to the chooser code above as well.
      */
+
+    //This should tell the robot when auton starts
+    private double startTime;
+
     @Override
     public void autonomousInit() {
         resetSubsystems();
+
     }
 
     /**
@@ -119,7 +128,11 @@ public class Robot extends TimedRobot {
     @Override
     public void autonomousPeriodic() {
         scheduler.run();
+
+
     }
+
+
 
     /**
      * This function is called periodically during operator control.
