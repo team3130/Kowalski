@@ -55,4 +55,9 @@ public class MoveForward implements Command {
         double currentTime = Timer.getFPGATimestamp();
         return (currentTime - time > 0.5);
     }
+
+    @Override
+    public Set<Subsystem> getRequirements() {
+        return null;
+    }
 }
