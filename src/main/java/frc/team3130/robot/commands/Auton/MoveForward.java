@@ -28,7 +28,7 @@ public class MoveForward implements Command {
          time = Timer.getFPGATimestamp();
 
          /*  This is what Tank Drive does
-            LeftMotor1.set(0.6); //TODO: find what the motors are called
+            LeftMotor1.set(0.6);
             LeftMotor2.set(0.6);
             RightMotor1.set(-0.6);
             RightMotor2.set(-0.6);
