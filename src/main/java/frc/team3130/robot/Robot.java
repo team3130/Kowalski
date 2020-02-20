@@ -1,15 +1,20 @@
 package frc.team3130.robot;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
+import edu.wpi.first.wpilibj.*;
+import edu.wpi.first.wpilibj.geometry.Rotation2d;
+import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.RobotState;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.team3130.robot.commands.Chassis.DefaultDrive;
 import frc.team3130.robot.commands.Turret.ManualTurretAim;
+import frc.team3130.robot.sensors.Navx;
 import frc.team3130.robot.subsystems.*;
 import frc.team3130.robot.vision.Limelight;
 import frc.team3130.robot.vision.WheelSpeedCalculations;
@@ -67,6 +72,8 @@ public class Robot extends TimedRobot {
 
         Limelight.GetInstance().setLedState(false); //Turn vision tracking off when robot boots up
 
+
+
     }
 
     /**
@@ -99,6 +106,7 @@ public class Robot extends TimedRobot {
     public void robotPeriodic() {
         outputToShuffleboard();
         Limelight.GetInstance().updateData();
+        Chassis.m_odometry.update(Rotation2d.fromDegrees(Navx.getHeading()), Chassis.getDistanceL(), Chassis.getDistanceR());
     }
 
     /**
@@ -157,6 +165,7 @@ public class Robot extends TimedRobot {
         Hopper.outputToShuffleboard();
         Limelight.outputToShuffleboard();
         Flywheel.outputToShuffleboard();
+
 
         if (RobotState.isEnabled() && Turret.isOnTarget() && checkif) {
             if (gettime == true) {

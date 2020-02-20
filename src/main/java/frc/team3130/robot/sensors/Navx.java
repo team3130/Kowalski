@@ -3,6 +3,7 @@ package frc.team3130.robot.sensors;
 import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.SPI;
+import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import frc.team3130.robot.RobotMap;
 import frc.team3130.robot.subsystems.Chassis;
 
@@ -57,6 +58,11 @@ public class Navx {
     {
         if(m_bNavXPresent) return m_navX.getRate();
         return -1;
+    }
+
+
+    public static double getHeading() {
+        return Math.IEEEremainder(m_navX.getAngle(), 360) * (RobotMap.kNavxReversed ? -1.0 : 1.0);
     }
 
     public static boolean getNavxPresent(){

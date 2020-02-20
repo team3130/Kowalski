@@ -18,7 +18,7 @@ public class RobotMap {
     //Chassis
     public static double kChassisMaxVoltage = 12.0;
 
-    public static double kChassisWidth = 23.0; //FIXME
+    public static double kChassisWidth = 28.0; //FIXME
     public static double kChassisLengthBumpers = 39.0; //FIXME
     public static double kLWheelDiameter = 6.0; // Center wheel
     public static double kRWheelDiameter = 6.0; // Center wheel
@@ -57,7 +57,7 @@ public class RobotMap {
     public static double kLimelightHeight = 23;     // Height of camera aperture from the ground
     public static double kLimeLightLength = 9.5;    // Distance to the turret's rotation axis
     public static double kLimeLightOffset = 0;      // Side offset from the turret's plane of symmetry (left+)
-    public static double kLimeLightCalibrationDist = 36.0; // Exact horizontal distance between target and lens FIXME
+    public static double kLimeLightCalibrationDist = 120.0; // Exact horizontal distance between target and lens FIXME
 
     //Turret
     public static double kTurretManualDeadband = 0.09;
@@ -89,6 +89,8 @@ public class RobotMap {
     public static double kFlywheelRPMtoNativeUnitsScalar = RobotMap.kFlywheelTicksPerRevolution / (10.0 * 60.0);
     public static double kFlywheelReadyTolerance = 30.0; // In RPM
 
+    //NavX
+    public static boolean kNavxReversed = true; //FIXME
     //Hopper
     public static double kHopperMaxVoltage = 12.0;
 
