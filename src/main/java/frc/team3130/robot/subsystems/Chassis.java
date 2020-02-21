@@ -9,7 +9,9 @@ import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Subsystem;
+import edu.wpi.first.wpilibj.SerialPort;
 import frc.team3130.robot.RobotMap;
+import com.kauailabs.navx.frc.AHRS;
 
 public class Chassis implements Subsystem {
 
@@ -18,6 +20,9 @@ public class Chassis implements Subsystem {
     private static WPI_TalonFX m_leftMotorRear;
     private static WPI_TalonFX m_rightMotorFront;
     private static WPI_TalonFX m_rightMotorRear;
+
+    private static AHRS m_navX;
+    private static boolean m_navXPresent;
 
     private static DifferentialDrive m_drive;
 
@@ -89,8 +94,22 @@ public class Chassis implements Subsystem {
         m_drive.setRightSideInverted(false); //Motor inversion is already handled by talon configs
         m_drive.setDeadband(RobotMap.kDriveDeadband);
         m_drive.setSafetyEnabled(true); //feed() must be called to prevent motor disable TODO: check me
-    }
 
+        //Setup navX
+        try{
+			//Connect to navX Gyro on MXP port.
+			m_navX = new AHRS(SerialPort.Port.kMXP);
+			m_navXPresent = true;
+			//navX.setName("Chassis", "NavX");
+		} catch(Exception ex){
+			//If connection fails log the error and fall back to encoder based angles.
+			String str_error = "Error instantiating navX from MXP: ";
+			str_error += ex.getLocalizedMessage();
+			System.out.println(str_error);
+			m_navXPresent = false;
+		}
+    }
+    
     /**
      * Drive the robot using tank mode
      *
@@ -123,6 +142,16 @@ public class Chassis implements Subsystem {
      */
     public static void shift(boolean shiftVal) {
         m_shifter.set(shiftVal);
+    }
+
+    public static double getAngle()
+    {
+        if(m_navXPresent){
+                return m_navX.getAngle();
+        }else{
+            //TODO:Encoder Angle
+            return 0;
+        }
     }
 
     /**
