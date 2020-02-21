@@ -1,19 +1,22 @@
 package frc.team3130.robot.subsystems;
 
+import javax.swing.text.DefaultStyledDocument.ElementSpec;
+
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.StatusFrameEnhanced;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
+import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj2.command.Subsystem;
+import edu.wpi.first.wpilibj2.command.PIDSubsystem;
 import edu.wpi.first.wpilibj.SerialPort;
 import frc.team3130.robot.RobotMap;
 import com.kauailabs.navx.frc.AHRS;
 
-public class Chassis implements Subsystem {
+public class Chassis extends PIDSubsystem { //implements Subsystem {
 
     //Create necessary objects
     private static WPI_TalonFX m_leftMotorFront;
@@ -22,13 +25,16 @@ public class Chassis implements Subsystem {
     private static WPI_TalonFX m_rightMotorRear;
 
     private static AHRS m_navX;
-    private static boolean m_navXPresent;
 
     private static DifferentialDrive m_drive;
 
     private static Solenoid m_shifter;
 
     //Create and define all standard data types needed
+    
+    private static boolean m_navXPresent;
+
+    private static double moveSpeed;
 
     /**
      * The Singleton instance of this Chassis. External classes should use the
@@ -46,6 +52,8 @@ public class Chassis implements Subsystem {
     }
 
     private Chassis() {
+        super(new PIDController(1, 0, 0));//TODO: Set Turn PID
+
         m_leftMotorFront = new WPI_TalonFX(RobotMap.CAN_LEFTMOTORFRONT);
         m_leftMotorRear = new WPI_TalonFX(RobotMap.CAN_LEFTMOTORREAR);
         m_rightMotorFront = new WPI_TalonFX(RobotMap.CAN_RIGHTMOTORFRONT);
@@ -107,7 +115,9 @@ public class Chassis implements Subsystem {
 			str_error += ex.getLocalizedMessage();
 			System.out.println(str_error);
 			m_navXPresent = false;
-		}
+        }
+        
+        moveSpeed=0;
     }
     
     /**
@@ -142,25 +152,6 @@ public class Chassis implements Subsystem {
      */
     public static void shift(boolean shiftVal) {
         m_shifter.set(shiftVal);
-    }
-
-    public static double getAngle()
-    {
-        if(m_navXPresent){
-                return m_navX.getAngle();
-        }else{
-            //TODO:Encoder Angle
-            return 0;
-        }
-    }
-
-    /**
-     * Tell the Chassis to hold a relative angle
-     *
-     * @param angle angle to hold in degrees
-     */
-    public static void holdAngle(double angle) {
-        // TODO: Rework
     }
 
     /**
@@ -357,6 +348,61 @@ public class Chassis implements Subsystem {
         SmartDashboard.putNumber("Chassis Right Output %", m_rightMotorFront.getMotorOutputPercent());
         SmartDashboard.putNumber("Chassis Left Output %", m_leftMotorFront.getMotorOutputPercent());
 
+    }
+
+    @Override
+    protected void useOutput(double output, double setpoint) {
+        //Chassis ramp rate is the limit on the voltage change per cycle to prevent skidding.
+    	/*final double speedLimit = prevSpeedLimit + Preferences.getInstance().getDouble("ChassisRampRate", 0.25);
+    	if (output >  speedLimit) bias = speedLimit;
+    	if (bias < -speedLimit) bias = -speedLimit;*/
+    	double speed_L = moveSpeed+output;
+    	double speed_R = moveSpeed-output;
+    	driveTank(speed_L, speed_R, false); 
+    	//prevSpeedLimit = Math.abs(speedLimit);
+    }
+
+    @Override
+    protected double getMeasurement() {
+        return getAngle();
+    }
+
+    public static void driveStraight(double move){
+        moveSpeed=move;
+    }
+
+    public static double getAngle()
+    {
+        if(m_navXPresent){
+                return m_navX.getAngle();
+        }else{
+            //TODO:Encoder Angle, if wanted
+            return 0;
+        }
+    }
+
+    /**
+     * Tell the Chassis to hold a relative angle
+     *
+     * @param angle angle to hold in degrees
+     */
+    public static void holdAngle(double angle) {
+        setPIDValues();
+        getInstance().setSetpoint(getAngle()+angle);
+        getInstance().enable();
+    }
+
+    public static void ReleaseAngle(){
+        getInstance().disable();
+        driveTank(0, 0, false);//Clear motors
+    }
+
+    private static void setPIDValues(){
+        if(isLowGear()){//low gear chassis pid
+            getInstance().getController().setPID(1, 0, 0);//TODO:Expose to Preferences
+        }else{//high gear chassis pid
+            getInstance().getController().setPID(1, 0, 0);//TODO:Expose to Preferences
+        }
     }
 
 }
