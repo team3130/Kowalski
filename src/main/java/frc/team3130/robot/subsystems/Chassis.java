@@ -411,4 +411,11 @@ public class Chassis extends PIDSubsystem { //implements Subsystem {
         }
     }
 
+    public void setAbsoluteTolerance(double tolerance){
+        getController().setTolerance(tolerance);
+    }
+
+    public boolean onTarget(){
+        return getController().atSetpoint();
+    }
 }
