@@ -17,20 +17,22 @@ import frc.team3130.robot.commands.Turret.ToggleTurretAim;
 
 public class BackShoot3 extends SequentialCommandGroup {
 	private AutoDriveStraightToPoint driveBack;
+	private AutoTurretAngle adjustAim;
 
 	/**
 	 * Creates a new BackShoot3.
 	 */
 	public BackShoot3() {
 		driveBack = new AutoDriveStraightToPoint();
+		adjustAim = new AutoTurretAngle();
 
 		// Add your commands in the super() call, e.g.
 		// super(new FooCommand(), new BarCommand());
 		addCommands(
-			new ParallelRaceGroup(driveBack = new AutoDriveStraightToPoint(), new AutoDelay(1.5)),
+			new ParallelRaceGroup(driveBack, adjustAim, new AutoDelay(1.5)),
 			new ToggleTurretAim(), //Assume aim is off prior to
 			new ParallelCommandGroup(new SpinFlywheel(), new SequentialCommandGroup(//Spin flywheel through next part
-				new HopperIn(true)
+				new ParallelRaceGroup(new HopperIn(true), new AutoDelay(3))
 			))
 		);
 	}
@@ -42,6 +44,10 @@ public class BackShoot3 extends SequentialCommandGroup {
 			4,
 			0.7,
 			false
+		);
+
+		adjustAim.setParam(
+			15
 		);
 
 		super.initialize();		
