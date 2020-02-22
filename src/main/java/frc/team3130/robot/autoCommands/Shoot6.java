@@ -52,16 +52,16 @@ public class Shoot6 extends SequentialCommandGroup {
 	@Override
 	public void initialize(){
 		driveBack20.SetParam(
-			20, 
-			2, 
-			0.5, 
-			true
+			20, //Drive Distance (inches)
+			2,  //Tolerance
+			0.5,//PVbus speed
+			true//Nothing
 		);
 
 		intakeTurn.setParam(
-			-3, 
-			0.5,
-			true
+			-3, //turn angle (degrees)
+			0.5,//tolerance (degrees)
+			true//small angle
 		);
 
 		driveBackIntake.SetParam(
