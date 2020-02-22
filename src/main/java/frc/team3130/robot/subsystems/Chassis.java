@@ -19,6 +19,9 @@ import edu.wpi.first.wpilibj.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveWheelSpeeds;
 import frc.team3130.robot.sensors.Navx;
 
+import static frc.team3130.robot.RobotMap.kChassisCodesPerRev;
+import static frc.team3130.robot.RobotMap.kLWheelDiameter;
+
 
 public class Chassis implements Subsystem {
 
@@ -284,17 +287,17 @@ public class Chassis implements Subsystem {
 
     //encoder crap
 
-    double encoderConstant = (1 / ENCODER_EDGES_PER_REV) * WHEEL_DIAMETER * Math.PI;
+    double encoderConstant = (1 / kChassisCodesPerRev) * kLWheelDiameter * Math.PI;
 
 
-    leftMotorFront.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0 ,0);
-    leftMotorFront.setSensorPhase(true);
+    m_leftMotorFront.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0 ,0);
+    m_leftMotorFront.setSensorPhase(true);
     leftEncoderPosition = () -> leftMotorFront.getSelectedSensorPosition() * encoderConstant;
     leftEncoderRate = () -> leftMotorFront.getSelectedSensorVelocity() * 10.0 * encoderConstant;
 
 
-    rightMotorFront.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0 ,0);
-    rightMotorFront.setSensorPhase(true);
+    m_rightMotorFront.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0 ,0);
+    m_rightMotorFront.setSensorPhase(true);
     rightEncoderPosition = () -> rightMotor1.getSelectedSensorPosition() * encoderConstant;
     rightEncoderRate = () -> rightMotor1.getSelectedSensorVelocity() * 10.0 * encoderConstant;
 
