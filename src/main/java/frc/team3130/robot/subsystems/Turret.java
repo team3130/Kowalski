@@ -43,6 +43,8 @@ public class Turret implements Subsystem {
         m_turret.overrideLimitSwitchesEnable(false);
         m_turret.overrideSoftLimitsEnable(true);
 
+        //m_turret.getSensorCollection(),
+
         m_turret.setNeutralMode(NeutralMode.Brake);
 
         // configure Talons
@@ -145,6 +147,7 @@ public class Turret implements Subsystem {
         }
     }
 
+
     /**
      * Flip the aiming state of the turret
      */
@@ -177,7 +180,8 @@ public class Turret implements Subsystem {
 
     public static synchronized void writePeriodicOutputs() {
         if (isAiming && Limelight.GetInstance().hasTrack()) {
-            double offset = Limelight.GetInstance().getDegHorizontalError();
+            // TODO: Explain why is this negative
+            double offset = -Limelight.GetInstance().getDegHorizontalError();
             double turretAngle = getAngleDegrees();
             Turret.setAngle(turretAngle + offset);
         }
