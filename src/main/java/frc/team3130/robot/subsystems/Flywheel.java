@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Subsystem;
 import frc.team3130.robot.RobotMap;
 
-import static frc.team3130.robot.util.Utils.configPIDF;
+//import static frc.team3130.robot.util.Utils.configPIDF;
 
 public class Flywheel implements Subsystem {
 
@@ -179,5 +179,11 @@ public class Flywheel implements Subsystem {
         SmartDashboard.putBoolean("Flywheel canShoot", canShoot());
     }
 
+    public static void configPIDF(WPI_TalonFX _talon, double kP, double kI, double kD, double kF) {
+        _talon.config_kP(0, kP, 0);
+        _talon.config_kI(0, kI, 0);
+        _talon.config_kD(0, kD, 0);
+        _talon.config_kF(0, kF, 0);
+    }
 }
 

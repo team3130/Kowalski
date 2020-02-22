@@ -80,9 +80,9 @@ public class RobotMap {
     public static double kTurretFwdLimit = 190.0; // Angle in degrees
     public static double kTurretRevLimit = -190.0; // Angle in degrees
 
-    public static double kTurretP = 1.0; // TODO: tune me
+    public static double kTurretP = 1.4; // PID checked 2/6
     public static double kTurretI = 0;
-    public static double kTurretD = 0;
+    public static double kTurretD = 210.0;
     public static double kTurretF = 0;
     public static int kTurretMaxAcc = 1000;
     public static int kTurretMaxVel = 1500;

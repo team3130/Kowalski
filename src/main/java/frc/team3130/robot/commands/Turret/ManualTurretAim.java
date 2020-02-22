@@ -14,6 +14,7 @@ public class ManualTurretAim implements Command {
     private final Set<Subsystem> subsystems;
 
     private boolean manualChanged = false;
+    private boolean lastState = false;
 
     public ManualTurretAim() {
         this.subsystems = Set.of(Turret.getInstance());
@@ -37,11 +38,16 @@ public class ManualTurretAim implements Command {
         double turnSpeed = -weaponsGamepad.getRawAxis(RobotMap.LST_AXS_RJOYSTICKX); //returns value from -1 to 1 of R X axis of gamepad.
 
         if (Math.abs(turnSpeed) >= RobotMap.kTurretManualDeadband){
+            if(!manualChanged){
+                lastState = Turret.isTurretAiming();
+            }
+            Turret.setAimState(false);
             double moveSpeed = RobotMap.kTurretManualMultipler * Utils.applyDeadband(turnSpeed, RobotMap.kTurretManualDeadband);
-            Turret.manualOp(moveSpeed);
+            Turret.setOpenLoop(moveSpeed);
             manualChanged = true;
         } else if (manualChanged){
-            Turret.aim(false);
+            Turret.setOpenLoop(0);
+            Turret.setAimState(lastState);
             manualChanged = false;
         }
 
