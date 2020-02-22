@@ -36,26 +36,31 @@ public class AutoTurn extends CommandBase {
 	// Called when the command is initially scheduled.
 	@Override
 	public void initialize() {
+		System.out.println("StartAutoTurn");
 		Chassis.ReleaseAngle();
-		Chassis.holdAngle(angle);
 		Chassis.getInstance().setAbsoluteTolerance(thresh);
+		Chassis.holdAngle(angle);
 		Chassis.driveStraight(0);
 	}
 
 	// Called every time the scheduler runs while the command is scheduled.
 	@Override
 	public void execute() {
+		System.out.println("Angle: "+Chassis.getAngle());
+		System.out.println("Setpoint: "+Chassis.getInstance().getSetpoint());
+		System.out.println();
 	}
 
 	// Called once the command ends or is interrupted.
 	@Override
 	public void end(boolean interrupted) {
+		System.out.println("ENDING");
 		Chassis.ReleaseAngle();
 	}
 
 	// Returns true when the command should end.
 	@Override
 	public boolean isFinished() {
-		return Chassis.getInstance().onTarget();
+		return Math.abs(Chassis.getAngle()-Chassis.getInstance().getSetpoint()) < thresh;
 	}
 }

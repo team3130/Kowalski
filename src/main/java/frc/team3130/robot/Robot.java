@@ -186,8 +186,11 @@ public class Robot extends TimedRobot {
         Chassis.outputToShuffleboard();
         Turret.outputToShuffleboard();
         Hopper.outputToShuffleboard();
-        Limelight.outputToShuffleboard();
+        //Limelight.outputToShuffleboard();
         Flywheel.outputToShuffleboard();
+
+        SmartDashboard.putNumber("Angle: ",Chassis.getAngle());
+        SmartDashboard.putNumber("Distance: ",Chassis.getDistance());
 
         if (RobotState.isEnabled() && Turret.isOnTarget() && checkif) {
             if (gettime == true) {

@@ -120,7 +120,7 @@ public class OI {
         testAutoTurn.whenHeld(autoTurn, true);
 
         AutoDriveStraightToPoint autoDrive = new AutoDriveStraightToPoint();
-        autoDrive.SetParam(12, 2, 0.7, false);
+        autoDrive.SetParam(12*15, 2, 0.5, true);
         testAutoDrive.whenHeld(autoDrive, true);
     }
 }

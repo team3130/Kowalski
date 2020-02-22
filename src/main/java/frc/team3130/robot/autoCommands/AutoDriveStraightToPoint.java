@@ -52,14 +52,16 @@ public class AutoDriveStraightToPoint implements Command {
 
 	@Override
 	public void initialize(){
+		System.out.println("StartAutoDrive");
 		m_controller.reset();
 
-		Chassis.shift(!m_shiftLow);
+		//Chassis.shift(!m_shiftLow);
 		Chassis.holdAngle(0);
 		m_controller.setSetpoint(m_distance+Chassis.getDistance());
 		m_controller.setTolerance(m_threshold);
 		setPID();
-		Chassis.configBrakeMode(true);;
+		Chassis.configBrakeMode(true);
+		Chassis.configRampRate(3);
 
 	}
 
@@ -72,25 +74,31 @@ public class AutoDriveStraightToPoint implements Command {
 
 	private void setPID(){
 		m_controller.setPID( //TODO:Tune PID, using Itasca values
-			Preferences.getInstance().getDouble("DriveStraightP", 0.02),
+			Preferences.getInstance().getDouble("DriveStraightP", 0.3),
 			Preferences.getInstance().getDouble("DriveStraightI", 0),
-			Preferences.getInstance().getDouble("DriveStraightD", 0.07)
+			Preferences.getInstance().getDouble("DriveStraightD", 0)
 		);
 	}
 
 	@Override
 	public void execute() {
+		System.out.println("Pos: "+Chassis.getDistance());
+		System.out.println("Setpoint: "+m_controller.getSetpoint());
+		System.out.println();
+		//Chassis.driveStraight(0.5);
 		useOutput(m_controller.calculate(Chassis.getDistance()));
 	}
 
 	// Returns true when the command should end.
 	@Override
 	public boolean isFinished() {
+		//return false;
 		return m_controller.atSetpoint();
 	}
 
 	@Override
 	public void end(boolean interrupted) {
+		System.out.println("ENDING");
 		Chassis.ReleaseAngle();
 		Chassis.driveTank(0, 0, false);
 	}

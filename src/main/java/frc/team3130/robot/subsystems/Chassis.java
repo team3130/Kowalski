@@ -349,11 +349,13 @@ public class Chassis extends PIDSubsystem { //implements Subsystem {
         //Chassis ramp rate is the limit on the voltage change per cycle to prevent skidding.
     	/*final double speedLimit = prevSpeedLimit + Preferences.getInstance().getDouble("ChassisRampRate", 0.25);
     	if (output >  speedLimit) bias = speedLimit;
-    	if (bias < -speedLimit) bias = -speedLimit;*/
+        if (bias < -speedLimit) bias = -speedLimit;*/
+        //System.out.println("UsingTurnPID");
     	double speed_L = moveSpeed+output;
     	double speed_R = moveSpeed-output;
     	driveTank(speed_L, speed_R, false); 
-    	//prevSpeedLimit = Math.abs(speedLimit);
+        //driveTank(0.1,-0.1,false);
+        //prevSpeedLimit = Math.abs(speedLimit);
     }
 
     @Override
@@ -391,18 +393,11 @@ public class Chassis extends PIDSubsystem { //implements Subsystem {
         driveTank(0, 0, false);//Clear motors
     }
 
-    private static void setPIDValues(){//TODO: Tune Pid
-        if(isLowGear()){//low gear chassis pid
-            getInstance().getController().setPID(
-                Preferences.getInstance().getDouble("ChassisLowP", 1),
-                Preferences.getInstance().getDouble("ChassisLowI", 0),
-                Preferences.getInstance().getDouble("ChassisLowD", 0));
-        }else{//high gear chassis pid
-            getInstance().getController().setPID(
-                Preferences.getInstance().getDouble("ChassisHighP", 1),
-                Preferences.getInstance().getDouble("ChassisHighI", 0),
-                Preferences.getInstance().getDouble("ChassisHighD", 0));
-        }
+    private static void setPIDValues(){//TOD2O: Tune Pid
+        getInstance().getController().setPID(
+            Preferences.getInstance().getDouble("ChassisLowP", 0.0055),
+            Preferences.getInstance().getDouble("ChassisLowI", 0.003),
+            Preferences.getInstance().getDouble("ChassisLowD", 0));
     }
 
     public void setAbsoluteTolerance(double tolerance){
@@ -411,5 +406,9 @@ public class Chassis extends PIDSubsystem { //implements Subsystem {
 
     public boolean onTarget(){
         return getController().atSetpoint();
+    }
+
+    public double getSetpoint(){
+        return getController().getSetpoint();
     }
 }
