@@ -30,7 +30,7 @@ public class Chassis implements Subsystem {
     private static WPI_TalonFX m_leftMotorRear;
     private static WPI_TalonFX m_rightMotorFront;
     private static WPI_TalonFX m_rightMotorRear;
-    
+
 
     private static DifferentialDrive m_drive;
 
