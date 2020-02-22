@@ -11,6 +11,7 @@ public class RobotMap {
     /**
      * Constants
      */
+
     //Which Robot
     public static boolean kUseCompbot = false;
 
@@ -51,7 +52,6 @@ public class RobotMap {
     public static double kVelocityToEncoder = kDistanceToEncoder / 10.0;        // Per 100ms
     public static double kAccelerationToEncoder = kVelocityToEncoder / 10.0;    // Per 100ms
 
-<<<<<<< HEAD
     //Limelight
     public static double kLimeLightPitch = 19.76;   // Tilting forward is negative FIXME: calibrate
     public static double kLimeLightYaw = 0;        // Aiming bias FIXME: calibrate
@@ -60,8 +60,6 @@ public class RobotMap {
     public static double kLimeLightLength = 9.5;    // Distance to the turret's rotation axis
     public static double kLimeLightOffset = 0;      // Side offset from the turret's plane of symmetry (left+)
     public static double kLimeLightCalibrationDist = 120.0; // Exact horizontal distance between target and lens FIXME
-=======
->>>>>>> master
 
     //Turret
 
@@ -112,7 +110,7 @@ public class RobotMap {
     public static double kFlywheelReadyTolerance = 60.0; // In RPM FIXME: might be why we have variation while shooting
 
     //NavX
-    public static boolean kNavxReversed = true; //FIXME
+    public static boolean kNavxReversed = true;
     //Hopper
     public static double kHopperMaxVoltage = 12.0;
     public static double kHopperChamberPause = 0.3;
@@ -140,10 +138,10 @@ public class RobotMap {
     public static final int CAN_LEFTMOTORFRONT = 4;
     public static final int CAN_LEFTMOTORREAR = 5;
 
-    public static final int CAN_WHEELOFFORTUNE = 107; //TODO: This is wrong
+    public static final int CAN_WHEELOFFORTUNE = 107;
 
-    public static final int CAN_SKYWALKER = 106; //TODO: map this
-    public static final int CAN_CLIMBER1 = 7; //TODO: also map this because I put a random number in
+    public static final int CAN_SKYWALKER = 106;
+    public static final int CAN_CLIMBER1 = 7;
     public static final int CAN_CLIMBER2 = 11;
 
     public static final int CAN_TURRETANGLE = 6;

@@ -283,21 +283,21 @@ public class Chassis implements Subsystem {
     //Configs
 
     //encoder crap
-    /*
+
     double encoderConstant = (1 / ENCODER_EDGES_PER_REV) * WHEEL_DIAMETER * Math.PI;
 
 
-    leftMotor1.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0 ,0); //TODO: check
-    leftMotor1.setSensorPhase(true);
-    leftEncoderPosition = () -> leftMotor1.getSelectedSensorPosition() * encoderConstant;
-    leftEncoderRate = () -> leftMotor1.getSelectedSensorVelocity() * 10.0 * encoderConstant;
+    leftMotorFront.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0 ,0);
+    leftMotorFront.setSensorPhase(true);
+    leftEncoderPosition = () -> leftMotorFront.getSelectedSensorPosition() * encoderConstant;
+    leftEncoderRate = () -> leftMotorFront.getSelectedSensorVelocity() * 10.0 * encoderConstant;
 
 
-    rightMotor1.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0 ,0);
-    rightMotor1.setSensorPhase(true);
+    rightMotorFront.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0 ,0);
+    rightMotorFront.setSensorPhase(true);
     rightEncoderPosition = () -> rightMotor1.getSelectedSensorPosition() * encoderConstant;
     rightEncoderRate = () -> rightMotor1.getSelectedSensorVelocity() * 10.0 * encoderConstant;
-    */
+
     
     /**
      * Set the drive talons to either Brake or Coast mode
