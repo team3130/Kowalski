@@ -1,6 +1,7 @@
 package frc.team3130.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.StatusFrameEnhanced;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
@@ -299,6 +300,24 @@ public class Chassis implements Subsystem {
 
     //Configs
 
+    //encoder crap
+    /*
+    double encoderConstant = (1 / ENCODER_EDGES_PER_REV) * WHEEL_DIAMETER * Math.PI;
+
+
+    leftMotor1.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0 ,0); //TODO: check
+    leftMotor1.setSensorPhase(true);
+    leftEncoderPosition = () -> leftMotor1.getSelectedSensorPosition() * encoderConstant;
+    leftEncoderRate = () -> leftMotor1.getSelectedSensorVelocity() * 10.0 * encoderConstant;
+
+
+    rightMotor1.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0 ,0);
+    rightMotor1.setSensorPhase(true);
+    rightEncoderPosition = () -> rightMotor1.getSelectedSensorPosition() * encoderConstant;
+    rightEncoderRate = () -> rightMotor1.getSelectedSensorVelocity() * 10.0 * encoderConstant;
+    */
+
+     */
     /**
      * Configure the drivetrain for motion profiling
      *
