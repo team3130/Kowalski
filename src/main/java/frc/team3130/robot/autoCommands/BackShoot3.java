@@ -8,6 +8,7 @@
 package frc.team3130.robot.autoCommands;
 
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
+import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
 import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.team3130.robot.commands.Flywheel.SpinFlywheel;
@@ -29,9 +30,9 @@ public class BackShoot3 extends SequentialCommandGroup {
 		// Add your commands in the super() call, e.g.
 		// super(new FooCommand(), new BarCommand());
 		addCommands(
-			new ParallelRaceGroup(driveBack, adjustAim, new AutoDelay(1.5)),
+			new ParallelRaceGroup(new ParallelCommandGroup(driveBack, adjustAim), new AutoDelay(1.5)),//need both driveBack and adjustAim done, or AutoDelay times out
 			new ToggleTurretAim(), //Assume aim is off prior to
-			new ParallelCommandGroup(new SpinFlywheel(), new SequentialCommandGroup(//Spin flywheel through next part
+			new ParallelCommandGroup(new ParallelRaceGroup(new SpinFlywheel(), new AutoDelay(3)), new SequentialCommandGroup(//Spin flywheel through next part
 				new ParallelRaceGroup(new HopperIn(true), new AutoDelay(3))
 			))
 		);
