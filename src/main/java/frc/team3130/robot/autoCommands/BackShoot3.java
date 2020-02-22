@@ -32,9 +32,7 @@ public class BackShoot3 extends SequentialCommandGroup {
 		addCommands(
 			new ParallelRaceGroup(new ParallelCommandGroup(driveBack, adjustAim), new AutoDelay(1.5)),//need both driveBack and adjustAim done, or AutoDelay times out
 			new ToggleTurretAim(), //Assume aim is off prior to
-			new ParallelCommandGroup(new ParallelRaceGroup(new SpinFlywheel(), new AutoDelay(3)), new SequentialCommandGroup(//Spin flywheel through next part
-				new ParallelRaceGroup(new HopperIn(true), new AutoDelay(3))
-			))
+			new ParallelRaceGroup(new AutoShootAll(), new AutoDelay(3)) //Shoot All Balls
 		);
 	}
 

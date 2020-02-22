@@ -35,9 +35,7 @@ public class Shoot8 extends SequentialCommandGroup {
 			new ToggleTurretAim(), //Disable aim
 			new ParallelRaceGroup(new ParallelDeadlineGroup(driveBackIntake, new IntakeIn()), new AutoDelay(2)),
 			new ParallelRaceGroup(new ParallelDeadlineGroup(driveUp, new ToggleTurretAim()), new AutoDelay(1.5)),
-			new ParallelCommandGroup(new ParallelRaceGroup(new SpinFlywheel(), new AutoDelay(4)), new SequentialCommandGroup(
-				new ParallelRaceGroup(new HopperIn(true), new AutoDelay(3))
-			))
+			new ParallelRaceGroup(new AutoShootAll(), new AutoDelay(3)) //Shoot All Balls
 		);
 	}
 
