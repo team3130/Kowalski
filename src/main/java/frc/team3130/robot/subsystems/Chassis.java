@@ -14,7 +14,6 @@ import edu.wpi.first.wpilibj2.command.PIDSubsystem;
 import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.SerialPort;
 import frc.team3130.robot.RobotMap;
-import com.kauailabs.navx.frc.AHRS;
 
 public class Chassis extends PIDSubsystem { //implements Subsystem {
 
@@ -24,15 +23,11 @@ public class Chassis extends PIDSubsystem { //implements Subsystem {
     private static WPI_TalonFX m_rightMotorFront;
     private static WPI_TalonFX m_rightMotorRear;
 
-    private static AHRS m_navX;
-
     private static DifferentialDrive m_drive;
 
     private static Solenoid m_shifter;
 
     //Create and define all standard data types needed
-    
-    private static boolean m_navXPresent;
 
     private static double moveSpeed;
 
@@ -102,20 +97,6 @@ public class Chassis extends PIDSubsystem { //implements Subsystem {
         m_drive.setRightSideInverted(false); //Motor inversion is already handled by talon configs
         m_drive.setDeadband(RobotMap.kDriveDeadband);
         m_drive.setSafetyEnabled(true); //feed() must be called to prevent motor disable TODO: check me
-
-        //Setup navX
-        try{
-			//Connect to navX Gyro on MXP port.
-			m_navX = new AHRS(SerialPort.Port.kMXP);
-			m_navXPresent = true;
-			//navX.setName("Chassis", "NavX");
-		} catch(Exception ex){
-			//If connection fails log the error and fall back to encoder based angles.
-			String str_error = "Error instantiating navX from MXP: ";
-			str_error += ex.getLocalizedMessage();
-			System.out.println(str_error);
-			m_navXPresent = false;
-        }
         
         moveSpeed=0;
     }
@@ -373,8 +354,8 @@ public class Chassis extends PIDSubsystem { //implements Subsystem {
 
     public static double getAngle()
     {
-        if(m_navXPresent){
-                return m_navX.getAngle();
+        if(Navx.getNavxPresent()){
+                return Navx.getAngle();
         }else{
             //TODO:Encoder Angle, if wanted
             return 0;
