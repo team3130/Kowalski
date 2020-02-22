@@ -2,6 +2,9 @@ package frc.team3130.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import edu.wpi.first.wpilibj2.command.button.POVButton;
+import frc.team3130.robot.autoCommands.AutoDriveStraightToPoint;
+import frc.team3130.robot.autoCommands.AutoTurn;
 import frc.team3130.robot.commands.Chassis.ShiftToggle;
 import frc.team3130.robot.commands.Climber.*;
 import frc.team3130.robot.commands.Flywheel.SetFlywheelRPM;
@@ -76,6 +79,8 @@ public class OI {
     private static JoystickButton WOFLeft = new JoystickButton(weaponsGamepad, RobotMap.LST_BTN_X);
     private static JoystickButton WOFRight = new JoystickButton(weaponsGamepad, RobotMap.LST_BTN_B);
 
+    private static POVButton testAutoTurn = new POVButton(driverGamepad, RobotMap.LST_POV_E);
+    private static POVButton testAutoDrive = new POVButton(driverGamepad, RobotMap.LST_POV_W);
 
     // Binding the buttons and triggers that are defined above to respective commands
     private OI() {
@@ -109,6 +114,14 @@ public class OI {
         shift.whenPressed(new ShiftToggle());
 
         toggleHood.whenPressed(new ActuateHood());
+
+        AutoTurn autoTurn = new AutoTurn();
+        autoTurn.setParam(90, 2);
+        testAutoTurn.whenHeld(autoTurn, true);
+
+        AutoDriveStraightToPoint autoDrive = new AutoDriveStraightToPoint();
+        autoDrive.SetParam(12, 2, 0.7, false);
+        testAutoDrive.whenHeld(autoDrive, true);
     }
 }
 
