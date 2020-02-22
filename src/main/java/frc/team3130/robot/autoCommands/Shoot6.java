@@ -26,7 +26,7 @@ public class Shoot6 extends SequentialCommandGroup {
 	 */
 	public Shoot6() {
 		driveBack20 = new AutoDriveStraightToPoint();
-		shoot1Delay = new AutoDelay(3);
+		shoot1Delay = new AutoDelay(2);
 		intakeTurn = new AutoTurn();
 		intake = new IntakeIn();
 		driveBackIntake = new AutoDriveStraightToPoint();
@@ -37,14 +37,15 @@ public class Shoot6 extends SequentialCommandGroup {
 		// super(new FooCommand(), new BarCommand());
 		addCommands(
 			new ParallelRaceGroup(driveBack20,new AutoDelay(2)),
-			shoot1Delay,
+			shoot1Delay,//Replace with Shoot command
 			new ParallelRaceGroup(intakeTurn, new AutoDelay(2)),
 			new ParallelDeadlineGroup(
 				new ParallelRaceGroup(driveBackIntake, new AutoDelay(4)),
 				intake
 			),
-			new ParallelRaceGroup(driveUp, new AutoDelay(4)),
-			shoot2Delay
+			new AutoDelay(0.75),
+			new ParallelRaceGroup(driveUp, new AutoDelay(8)),
+			shoot2Delay//Replace with shoot command
 		);
 	}
 
@@ -58,20 +59,21 @@ public class Shoot6 extends SequentialCommandGroup {
 		);
 
 		intakeTurn.setParam(
-			-10, 
-			2
+			-3, 
+			0.5,
+			true
 		);
 
 		driveBackIntake.SetParam(
-			12*12,
-			2,
-			0.8,
+			12*13,
+			6,
+			0.5,
 			true
 		);
 
 		driveUp.SetParam(
-			-12*12,
-			2,
+			-12*13,
+			6,
 			0.8,
 			true
 		);

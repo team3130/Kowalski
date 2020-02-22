@@ -14,6 +14,7 @@ public class AutoTurn extends CommandBase {
 
 	private double angle;
 	private double thresh;
+	private boolean smallAngle;
 
 	/**
 	 * Creates a new AutoTurn.
@@ -30,16 +31,23 @@ public class AutoTurn extends CommandBase {
      */
     public void setParam(double angle, double threshold){
     	this.angle=angle;
-    	thresh=threshold;
-    }
+		thresh=threshold;
+		smallAngle=false;
+	}
+	
+	public void setParam(double angle, double threshold, boolean smallAngle){
+		setParam(angle, threshold);
+		this.smallAngle=true;
+	}
 
 	// Called when the command is initially scheduled.
 	@Override
 	public void initialize() {
 		System.out.println("StartAutoTurn");
+		Chassis.shift(false);
 		Chassis.ReleaseAngle();
 		Chassis.getInstance().setAbsoluteTolerance(thresh);
-		Chassis.holdAngle(angle);
+		Chassis.holdAngle(angle, smallAngle);
 		Chassis.driveStraight(0);
 	}
 

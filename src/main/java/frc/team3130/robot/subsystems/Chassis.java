@@ -382,8 +382,9 @@ public class Chassis extends PIDSubsystem { //implements Subsystem {
      *
      * @param angle angle to hold in degrees
      */
-    public static void holdAngle(double angle) {
-        setPIDValues();
+    public static void holdAngle(double angle, boolean smallAngle) {
+        setPIDValues(smallAngle);
+        getInstance().getController().reset();
         getInstance().setSetpoint(getAngle()+angle);
         getInstance().enable();
     }
@@ -393,11 +394,18 @@ public class Chassis extends PIDSubsystem { //implements Subsystem {
         driveTank(0, 0, false);//Clear motors
     }
 
-    private static void setPIDValues(){//TOD2O: Tune Pid
-        getInstance().getController().setPID(
-            Preferences.getInstance().getDouble("ChassisLowP", 0.0055),
-            Preferences.getInstance().getDouble("ChassisLowI", 0.003),
-            Preferences.getInstance().getDouble("ChassisLowD", 0));
+    private static void setPIDValues(boolean smallAngleTurn){//TOD2O: Tune Pid
+        if(smallAngleTurn){
+            getInstance().getController().setPID(
+                Preferences.getInstance().getDouble("ChassisLowP", 0.0055),
+                Preferences.getInstance().getDouble("ChassisLowBigI", 0.015),
+                Preferences.getInstance().getDouble("ChassisLowD", 0));
+        }else{
+            getInstance().getController().setPID(
+                Preferences.getInstance().getDouble("ChassisLowP", 0.0055),
+                Preferences.getInstance().getDouble("ChassisLowI", 0.003),
+                Preferences.getInstance().getDouble("ChassisLowD", 0));
+        }
     }
 
     public void setAbsoluteTolerance(double tolerance){

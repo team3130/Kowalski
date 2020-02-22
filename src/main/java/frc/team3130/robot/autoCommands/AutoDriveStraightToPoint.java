@@ -55,8 +55,8 @@ public class AutoDriveStraightToPoint implements Command {
 		System.out.println("StartAutoDrive");
 		m_controller.reset();
 
-		//Chassis.shift(!m_shiftLow);
-		Chassis.holdAngle(0);
+		Chassis.shift(false);
+		Chassis.holdAngle(0,false);
 		m_controller.setSetpoint(m_distance+Chassis.getDistance());
 		m_controller.setTolerance(m_threshold);
 		setPID();
@@ -93,7 +93,8 @@ public class AutoDriveStraightToPoint implements Command {
 	@Override
 	public boolean isFinished() {
 		//return false;
-		return m_controller.atSetpoint();
+		return Math.abs(Chassis.getDistance() - m_controller.getSetpoint()) < m_threshold;
+		//return m_controller.atSetpoint();
 	}
 
 	@Override
