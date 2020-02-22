@@ -14,11 +14,15 @@ public class RobotMap {
     /**
      * Constants
      */
+
     //Wheel speed calc path
     public static String kWheelSpeedPath = "home/lvuser/speed-storage-turret.ini";
 
     //NavX
     public static boolean kNavxReversed = true; //FIXME: check
+
+    //Which Robot
+    public static boolean kUseCompbot = false;
 
     //Chassis
     public static Pose2d kChassisStartingPose = new Pose2d(0.0, 0.0, Rotation2d.fromDegrees(0.0));
@@ -33,10 +37,12 @@ public class RobotMap {
     public static double kMaxHighGearDriveSpeed = 0.8;
     public static double kMaxTurnThrottle = 0.7; // Applied on top of max drive speed
 
-    public static double kLChassisTicksPerInch = 4096.0 / (Math.PI * kLWheelDiameter); //FIXME
-    public static double kRChassisTicksPerInch = 4096.0 / (Math.PI * kRWheelDiameter); //FIXME
+    public static double kChassisCodesPerRev = 2048;
+    public static double kLChassisTicksPerInch = kChassisCodesPerRev / (Math.PI * kLWheelDiameter);
+    public static double kRChassisTicksPerInch = kChassisCodesPerRev / (Math.PI * kRWheelDiameter);
 
     public static double kDriveDeadband = 0.02;
+    public static double kDriveMaxRampRate = 0.7; // Minimum seconds from 0 to 100
 
     //Motion Profiling
     public static double kChassisMinPointsInBuffer = 5;
@@ -52,24 +58,16 @@ public class RobotMap {
     public static double kMPMaxVel = 115.0; //maximum achievable velocity of the drivetrain in in/s NOTE: the actual motion profile should be generated at 80% of this
     public static double kMPMaxAcc = 60.0; ///maximum achievable acceleration of the drivetrain in in/s^2 NOTE: the actual motion profile should be generated at 80% of this
 
-    public static double kDriveCodesPerRev = 4096;
-    public static double kDistanceToEncoder = kDriveCodesPerRev / (Math.PI * 0.5 * (kLWheelDiameter + kRWheelDiameter));
+
+    public static double kDistanceToEncoder = kChassisCodesPerRev / (Math.PI * 0.5 * (kLWheelDiameter + kRWheelDiameter));
     public static double kVelocityToEncoder = kDistanceToEncoder / 10.0;        // Per 100ms
     public static double kAccelerationToEncoder = kVelocityToEncoder / 10.0;    // Per 100ms
 
-    //Limelight
-    public static double kLimeLightPitch = -22.6;   // Facing up is negative FIXME: calibrate
-    public static double kLimeLightYaw = 3.1;        // Aiming bias, facing left is positive FIXME: calibrate
-    public static double kLimeLightRoll = 0;       // If any, drooping to right is positive
-    public static double kLimelightHeight = 22.5;     // Height of camera aperture from the ground
-    public static double kLimeLightLength = 9.5;    // Distance to the turret's rotation axis
-    public static double kLimeLightOffset = 0;      // Side offset from the turret's plane of symmetry (left+)
-    public static double kLimeLightCalibrationDist = 120.0; // Exact horizontal distance between target and lens FIXME
 
     //Turret
 
     // Turret pitch and roll is how much the plane of the turret's rotation isn't level
-    public static final double kTurretPitch = -1.0; // Drop forward in degrees
+    public static final double kTurretPitch = (kUseCompbot ? -0.423 : -0.875); // Drop forward in degrees
     public static final double kTurretRoll = 0; // Roll to the right in degrees
 
     public static double kTurretManualDeadband = 0.09;
@@ -92,11 +90,23 @@ public class RobotMap {
     public static double kTurretHoldD = 210.0;
     public static double kTurretHoldF = 0;
 
-    public static double kTurretPracticebotTicksPerDegree = (1.0 / 360.0) * 4096.0 * (204.0 / 30.0); // Checked 1/31
-    public static double kTurretCompbotTicksPerDegree = (1.0 / 360.0) * 4096.0 * (204.0 / 32.0); // Checked 2/19
-    public static double kTurretOnTargetTolerance = 0.5; // In degrees
+    public static double kTurretTicksPerDegree = (kUseCompbot ? (1.0 / 360.0) * 4096.0 * (204.0 / 32.0) : (1.0 / 360.0) * 4096.0 * (204.0 / 30.0)); // Checked 1/31
+    public static double kTurretOnTargetTolerance = 0.5;
 
     public static double kTurretReadyToAimTolerance = 5.0; // In degrees
+    //Limelight
+
+    public static int kLimelightFilterBufferSize = 5; // Number of samples in input filtering window
+    public static double kLimelightLatencyMs = 11.0; // Image capture latency
+
+    public static double kLimelightPitch = (kUseCompbot ? -31.4325 : -31.625);   // Facing up is negative Checked: 2/21
+    public static double kLimelightYaw = 3.1;        // Aiming bias, facing left is positive FIXME: calibrate
+    public static double kLimelightRoll = 0;       // If any, drooping to right is positive
+    public static double kLimelightHeight = 22.5;     // Height of camera aperture from the ground
+    public static double kLimelightLength = 9.5;    // Distance to the turret's rotation axis
+    public static double kLimelightOffset = 0;      // Side offset from the turret's plane of symmetry (left+)
+    public static double kLimelightCalibrationDist = 120.0; // Exact horizontal distance between target and lens
+
 
     //Flywheel
     public static double kFlywheelMaxVoltage = 12.0;
@@ -109,10 +119,11 @@ public class RobotMap {
 
     public static double kFlywheelTicksPerRevolution = 2048.0 * (24.0 / 60.0); // Checked 2/11
     public static double kFlywheelRPMtoNativeUnitsScalar = RobotMap.kFlywheelTicksPerRevolution / (10.0 * 60.0);
-    public static double kFlywheelReadyTolerance = 60.0; // In RPM
+    public static double kFlywheelReadyTolerance = 60.0; // In RPM FIXME: might be why we have variation while shooting
 
     //Hopper
     public static double kHopperMaxVoltage = 12.0;
+    public static double kHopperChamberPause = 0.3;
 
     //Intake
     public static double kIntakeTriggerDeadband = 0.4;
@@ -147,8 +158,7 @@ public class RobotMap {
     public static final int CAN_FLYWHEEL1 = 14;
     public static final int CAN_FLYWHEEL2 = 13;
 
-
-    public static final int CAN_INTAKE1 = 10;
+    public static final int CAN_INTAKE = 10;
 
     public static final int CAN_HOPPERL = 8;
     public static final int CAN_HOPPERR = 9;

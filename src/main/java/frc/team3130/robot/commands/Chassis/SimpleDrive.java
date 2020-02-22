@@ -1,17 +1,21 @@
-package frc.team3130.robot.commands.Intake;
+package frc.team3130.robot.commands.Chassis;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Subsystem;
-import frc.team3130.robot.subsystems.ExampleSubsystem;
-import frc.team3130.robot.subsystems.Intake;
+import frc.team3130.robot.OI;
+import frc.team3130.robot.RobotMap;
+import frc.team3130.robot.subsystems.Chassis;
 
 import java.util.Set;
 
-public class DeployIntake implements Command {
+
+//Drive at half speed when held, and then stop when ended
+
+public class SimpleDrive implements Command {
     private final Set<Subsystem> subsystems;
 
-    public DeployIntake() {
-        this.subsystems = Set.of(Intake.getInstance());
+    public SimpleDrive() {
+        this.subsystems = Set.of(Chassis.getInstance());
     }
 
     /**
@@ -19,7 +23,7 @@ public class DeployIntake implements Command {
      */
     @Override
     public void initialize() {
-        Intake.deployIntake();
+        Chassis.driveTank(.50,.50,false);
     }
 
     /**
@@ -47,7 +51,6 @@ public class DeployIntake implements Command {
      */
     @Override
     public boolean isFinished() {
-        // TODO: Make this return true when this Command no longer needs to run execute()
         return false;
     }
 
@@ -61,7 +64,7 @@ public class DeployIntake implements Command {
      */
     @Override
     public void end(boolean interrupted) {
-
+        Chassis.driveTank(0,0,true);
     }
 
     /**

@@ -43,6 +43,8 @@ public class Turret implements Subsystem {
         m_turret.overrideLimitSwitchesEnable(false);
         m_turret.overrideSoftLimitsEnable(true);
 
+        //m_turret.getSensorCollection(),
+
         m_turret.setNeutralMode(NeutralMode.Brake);
 
         // configure Talons
@@ -64,12 +66,11 @@ public class Turret implements Subsystem {
 
         isAiming = false;
 
-        //TODO: switch from practice bot ticks to comp bot ticks
         m_turret.set(ControlMode.PercentOutput, 0.0); //Reset turret talon to simple percent output mode
-        m_turret.setSelectedSensorPosition((int) (RobotMap.kTurretStartupAngle* RobotMap.kTurretPracticebotTicksPerDegree));
+        m_turret.setSelectedSensorPosition((int) (RobotMap.kTurretStartupAngle* RobotMap.kTurretTicksPerDegree));
 
-        m_turret.configForwardSoftLimitThreshold((int) (RobotMap.kTurretFwdLimit * RobotMap.kTurretPracticebotTicksPerDegree));
-        m_turret.configReverseSoftLimitThreshold((int) (RobotMap.kTurretRevLimit * RobotMap.kTurretPracticebotTicksPerDegree));
+        m_turret.configForwardSoftLimitThreshold((int) (RobotMap.kTurretFwdLimit * RobotMap.kTurretTicksPerDegree));
+        m_turret.configReverseSoftLimitThreshold((int) (RobotMap.kTurretRevLimit * RobotMap.kTurretTicksPerDegree));
 
 
     }
@@ -81,7 +82,7 @@ public class Turret implements Subsystem {
      */
     public synchronized static void setAngle(double angle_deg) {
         // In Position mode, outputValue set is in rotations of the motor
-        m_turret.set(ControlMode.Position, angle_deg * RobotMap.kTurretPracticebotTicksPerDegree);
+        m_turret.set(ControlMode.Position, angle_deg * RobotMap.kTurretTicksPerDegree);
     }
 
     /**
@@ -99,7 +100,7 @@ public class Turret implements Subsystem {
      * @return Angle of the turret in degrees
      */
     public static double getAngleDegrees() {
-        return m_turret.getSelectedSensorPosition() / RobotMap.kTurretPracticebotTicksPerDegree;
+        return m_turret.getSelectedSensorPosition() / RobotMap.kTurretTicksPerDegree;
     }
 
     /**
@@ -108,7 +109,7 @@ public class Turret implements Subsystem {
      * @return Angle setpoint in degrees
      */
     public static double getAngleSetpoint() {
-        return m_turret.getClosedLoopTarget() / RobotMap.kTurretPracticebotTicksPerDegree;
+        return m_turret.getClosedLoopTarget() / RobotMap.kTurretTicksPerDegree;
     }
 
     /**
@@ -143,20 +144,6 @@ public class Turret implements Subsystem {
             Limelight.GetInstance().setLedState(true);
         } else {
             Limelight.GetInstance().setLedState(false);
-        }
-    }
-
-    public void calculateRPM() {
-        double RPM = Limelight.GetInstance().getDistanceToTarget();
-        if ((7 * 12) >= RPM) {
-            Flywheel.setSpeed(3200);
-        } else if ((26 * 12) <= RPM){
-            Flywheel.setSpeed(7500);
-        }
-        else{
-            //TODO: make distance a variable
-            //Flywheel.setSpeed((Math.pow(Limelight.GetInstance().getDistanceToTarget(), 4) / (40 * Math.pow(10,5)) + 3625)); //The Tomas
-            Flywheel.setSpeed(.0714 * Math.pow(RPM, 2)  - (18.856 * RPM) + 4963.2); //The Archit
         }
     }
 
