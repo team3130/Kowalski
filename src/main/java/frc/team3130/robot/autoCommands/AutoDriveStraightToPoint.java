@@ -29,7 +29,7 @@ public class AutoDriveStraightToPoint implements Command {
 	/**
 	 * Creates a new AutoDriveStraightToPoint.
 	 */
-	public AutoDriveStraightToPoint(double speed) {
+	public AutoDriveStraightToPoint() {
 		this.subsystems = Set.of(Chassis.getInstance());
 		m_controller = new PIDController(1, 0, 0);
 	}

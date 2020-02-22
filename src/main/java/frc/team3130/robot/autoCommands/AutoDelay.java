@@ -7,34 +7,40 @@
 
 package frc.team3130.robot.autoCommands;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
 public class AutoDelay extends CommandBase {
-  /**
-   * Creates a new AutoDelay.
-   */
-  public AutoDelay() {
-    // Use addRequirements() here to declare subsystem dependencies.
-  }
 
-  // Called when the command is initially scheduled.
-  @Override
-  public void initialize() {
-  }
+	double delay;
+	double startTime;
+	/**
+	 * Creates a new AutoDelay.
+	 */
+	public AutoDelay(double seconds) {
+		// Use addRequirements() here to declare subsystem dependencies.
+		delay=seconds;
+	}
 
-  // Called every time the scheduler runs while the command is scheduled.
-  @Override
-  public void execute() {
-  }
+	// Called when the command is initially scheduled.
+	@Override
+	public void initialize() {
+		startTime=Timer.getFPGATimestamp();
+	}
 
-  // Called once the command ends or is interrupted.
-  @Override
-  public void end(boolean interrupted) {
-  }
+	// Called every time the scheduler runs while the command is scheduled.
+	@Override
+	public void execute() {
+	}
 
-  // Returns true when the command should end.
-  @Override
-  public boolean isFinished() {
-    return false;
-  }
+	// Called once the command ends or is interrupted.
+	@Override
+	public void end(boolean interrupted) {
+	}
+
+	// Returns true when the command should end.
+	@Override
+	public boolean isFinished() {
+		return Timer.getFPGATimestamp() - startTime > delay;
+	}
 }
