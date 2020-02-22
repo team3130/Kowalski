@@ -30,6 +30,7 @@ public class Chassis implements Subsystem {
     private static WPI_TalonFX m_leftMotorRear;
     private static WPI_TalonFX m_rightMotorFront;
     private static WPI_TalonFX m_rightMotorRear;
+    
 
     private static DifferentialDrive m_drive;
 
@@ -284,23 +285,6 @@ public class Chassis implements Subsystem {
     }
 
     //Configs
-
-    //encoder crap
-
-    double encoderConstant = (1 / kChassisCodesPerRev) * kLWheelDiameter * Math.PI;
-
-
-    m_leftMotorFront.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0 ,0);
-    m_leftMotorFront.setSensorPhase(true);
-    leftEncoderPosition = () -> leftMotorFront.getSelectedSensorPosition() * encoderConstant;
-    leftEncoderRate = () -> leftMotorFront.getSelectedSensorVelocity() * 10.0 * encoderConstant;
-
-
-    m_rightMotorFront.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0 ,0);
-    m_rightMotorFront.setSensorPhase(true);
-    rightEncoderPosition = () -> rightMotor1.getSelectedSensorPosition() * encoderConstant;
-    rightEncoderRate = () -> rightMotor1.getSelectedSensorVelocity() * 10.0 * encoderConstant;
-
     
     /**
      * Set the drive talons to either Brake or Coast mode
