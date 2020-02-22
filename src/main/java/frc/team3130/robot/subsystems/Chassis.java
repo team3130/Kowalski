@@ -316,8 +316,7 @@ public class Chassis implements Subsystem {
     rightEncoderPosition = () -> rightMotor1.getSelectedSensorPosition() * encoderConstant;
     rightEncoderRate = () -> rightMotor1.getSelectedSensorVelocity() * 10.0 * encoderConstant;
     */
-
-     */
+    
     /**
      * Configure the drivetrain for motion profiling
      *
