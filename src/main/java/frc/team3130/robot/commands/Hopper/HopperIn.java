@@ -18,6 +18,14 @@ public class HopperIn implements Command {
     private boolean isShooting;
     private double lastIndexTime;
 
+    private boolean isAuton;
+
+    //auton mode
+    public HopperIn(boolean inAuton){
+        this();
+        isAuton=inAuton;
+    }
+
     public HopperIn() {
         this.subsystems = Set.of(Hopper.getInstance());
         justShot = true;
@@ -67,13 +75,13 @@ public class HopperIn implements Command {
 
             }
         } else {
-            if (changedState && Flywheel.getInstance().canShoot()) {
+            if (changedState && Flywheel.canShoot()) {
                 Hopper.runHopperTop(0.6);
                 isShooting = true;
                 changedState = false;
             } else {
                 if (isShooting) {
-                    if (!Flywheel.getInstance().canShoot()) {
+                    if (!Flywheel.canShoot()) {
                         isShooting = false;
                     }
                 } else {
@@ -101,10 +109,11 @@ public class HopperIn implements Command {
      */
     @Override
     public boolean isFinished() {
-        // TODO: Make this return true when this Command no longer needs to run execute()
-        return false;
-
-
+        if(isAuton){//shoot until empty in Auton
+            return !Hopper.isEmpty();
+        }else{
+            return false;
+        }
     }
 
     /**
