@@ -5,8 +5,14 @@ import edu.wpi.first.wpilibj.RobotState;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.team3130.robot.autoCommands.AutoDelay;
+import frc.team3130.robot.autoCommands.BackGrabShoot5;
+import frc.team3130.robot.autoCommands.BackShoot3;
+import frc.team3130.robot.autoCommands.Shoot8;
 import frc.team3130.robot.commands.Chassis.DefaultDrive;
 import frc.team3130.robot.commands.Turret.ManualTurretAim;
 import frc.team3130.robot.subsystems.*;
@@ -66,6 +72,12 @@ public class Robot extends TimedRobot {
 
         Limelight.GetInstance().setLedState(false); //Turn vision tracking off when robot boots up
 
+        chooser = new SendableChooser<>();
+        chooser.setDefaultOption("No Auton", "None");
+        chooser.addOption("3Ball", "3Ball");
+        chooser.addOption("5Ball", "5Ball");
+        chooser.addOption("8Ball", "8Ball");
+        SmartDashboard.putData("Auto mode", chooser);
     }
 
     /**
@@ -114,6 +126,32 @@ public class Robot extends TimedRobot {
     @Override
     public void autonomousInit() {
         resetSubsystems();
+
+        determineAuto();
+
+        if(autonomousCommand!=null){
+            autonomousCommand.schedule();
+        }
+    }
+
+    private void determineAuto(){
+        switch(chooser.getSelected()){
+            case "None":
+                break;
+
+            case "3Ball":
+                autonomousCommand = new BackShoot3();
+                break;
+
+            case "5Ball":
+                autonomousCommand = new BackGrabShoot5();
+                break;
+            
+            case "8Ball":
+                autonomousCommand = new Shoot8();
+                break;
+            
+        }
     }
 
     /**
@@ -122,6 +160,7 @@ public class Robot extends TimedRobot {
     @Override
     public void autonomousPeriodic() {
         scheduler.run();
+        writePeriodicOutputs();
     }
 
     /**
