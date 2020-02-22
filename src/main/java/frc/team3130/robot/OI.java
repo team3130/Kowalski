@@ -116,11 +116,11 @@ public class OI {
         toggleHood.whenPressed(new ActuateHood());
 
         AutoTurn autoTurn = new AutoTurn();
-        autoTurn.setParam(90, 2);
+        autoTurn.setParam(10, 2);
         testAutoTurn.whenHeld(autoTurn, true);
 
         AutoDriveStraightToPoint autoDrive = new AutoDriveStraightToPoint();
-        autoDrive.SetParam(12*15, 2, 0.5, true);
+        autoDrive.SetParam(12*15, 2, 0.8, true);
         testAutoDrive.whenHeld(autoDrive, true);
     }
 }

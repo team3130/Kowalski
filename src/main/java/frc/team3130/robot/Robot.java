@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.team3130.robot.autoCommands.AutoDelay;
 import frc.team3130.robot.autoCommands.BackGrabShoot5;
 import frc.team3130.robot.autoCommands.BackShoot3;
+import frc.team3130.robot.autoCommands.Shoot6;
 import frc.team3130.robot.autoCommands.Shoot8;
 import frc.team3130.robot.commands.Chassis.DefaultDrive;
 import frc.team3130.robot.commands.Turret.ManualTurretAim;
@@ -76,6 +77,7 @@ public class Robot extends TimedRobot {
         chooser.addOption("3Ball", "3Ball");
         chooser.addOption("5Ball", "5Ball");
         chooser.addOption("8Ball", "8Ball");
+        chooser.addOption("6Ball", "6Ball");
         SmartDashboard.putData("Auto mode", chooser);
     }
 
@@ -152,6 +154,9 @@ public class Robot extends TimedRobot {
                 autonomousCommand = new Shoot8();
                 break;
             
+            case "6Ball":
+                autonomousCommand = new Shoot6();
+                break;
         }
     }
 
