@@ -1,6 +1,5 @@
 package frc.team3130.robot.subsystems;
 
-import javax.swing.text.DefaultStyledDocument.ElementSpec;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
@@ -12,6 +11,7 @@ import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.PIDSubsystem;
+import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.SerialPort;
 import frc.team3130.robot.RobotMap;
 import com.kauailabs.navx.frc.AHRS;
@@ -397,11 +397,17 @@ public class Chassis extends PIDSubsystem { //implements Subsystem {
         driveTank(0, 0, false);//Clear motors
     }
 
-    private static void setPIDValues(){
+    private static void setPIDValues(){//TODO: Tune Pid
         if(isLowGear()){//low gear chassis pid
-            getInstance().getController().setPID(1, 0, 0);//TODO:Expose to Preferences
+            getInstance().getController().setPID(
+                Preferences.getInstance().getDouble("ChassisLowP", 1),
+                Preferences.getInstance().getDouble("ChassisLowI", 0),
+                Preferences.getInstance().getDouble("ChassisLowD", 0));
         }else{//high gear chassis pid
-            getInstance().getController().setPID(1, 0, 0);//TODO:Expose to Preferences
+            getInstance().getController().setPID(
+                Preferences.getInstance().getDouble("ChassisHighP", 1),
+                Preferences.getInstance().getDouble("ChassisHighI", 0),
+                Preferences.getInstance().getDouble("ChassisHighD", 0));
         }
     }
 
