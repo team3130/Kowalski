@@ -57,7 +57,7 @@ public class Robot extends TimedRobot {
         //Instantiate Navx
         Navx.GetInstance();
 
-        WheelSpeedCalculations.GetInstance();
+        //WheelSpeedCalculations.GetInstance();
 
         //Register and instantiate subsystems (optionally with default commands)
         //Note: registerSubsystem is NOT needed if setDefaultCommand is used

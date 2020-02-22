@@ -59,7 +59,7 @@ public class AutoDriveStraightToPoint implements Command {
 		m_controller.setSetpoint(m_distance+Chassis.getDistance());
 		m_controller.setTolerance(m_threshold);
 		setPID();
-		Chassis.talonsToCoast(false);
+		Chassis.configBrakeMode(true);;
 
 	}
 
