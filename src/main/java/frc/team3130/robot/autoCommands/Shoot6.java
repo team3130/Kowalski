@@ -10,13 +10,12 @@ package frc.team3130.robot.autoCommands;
 import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
 import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.team3130.robot.commands.Intake.IntakeIn;
 
 public class Shoot6 extends SequentialCommandGroup {
 	AutoDriveStraightToPoint driveBack20;
 	AutoDelay shoot1Delay;
 	AutoTurn intakeTurn;
-	IntakeIn intake;
+	AutoIntakeIn intake;
 	AutoDriveStraightToPoint driveBackIntake;
 	AutoDriveStraightToPoint driveUp;
 	AutoDelay shoot2Delay;
@@ -28,7 +27,7 @@ public class Shoot6 extends SequentialCommandGroup {
 		driveBack20 = new AutoDriveStraightToPoint();
 		shoot1Delay = new AutoDelay(2);
 		intakeTurn = new AutoTurn();
-		intake = new IntakeIn();
+		intake = new AutoIntakeIn();
 		driveBackIntake = new AutoDriveStraightToPoint();
 		driveUp = new AutoDriveStraightToPoint();
 		shoot2Delay = new AutoDelay(3);
