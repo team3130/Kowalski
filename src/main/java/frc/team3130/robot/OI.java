@@ -107,7 +107,7 @@ public class OI {
         RightWinchUnpull.whenHeld(new RightClimberUnpull());
         LeftWinchUnpull.whenHeld(new LeftClimberUnpull());
 
-        toggleWOF.whenHeld(new ToggleWOF());
+        toggleWOF.whenPressed(new ToggleWOF());
         WOFLeft.whenHeld(new SpinWOFLeft());
         WOFRight.whenHeld(new SpinWOFRight());
 
