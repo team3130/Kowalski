@@ -11,15 +11,15 @@ import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 
 
-public class BackShoot3 extends SequentialCommandGroup {
+public class Shoot3 extends SequentialCommandGroup {
 	private AutoDriveStraightToPoint driveBack;
 	private AutoDelay wait;
 	private AutoDelay shoot1Delay;
 
 	/**
-	 * Creates a new BackShoot3.
+	 * Creates a new Shoot3.
 	 */
-	public BackShoot3() {
+	public Shoot3() {
 		driveBack = new AutoDriveStraightToPoint();
 		wait = new AutoDelay(7);
 		shoot1Delay = new AutoDelay(3);
