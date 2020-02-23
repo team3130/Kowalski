@@ -36,6 +36,8 @@ public class Robot extends TimedRobot {
     boolean gettime = true;
     boolean checkif = true;
 
+    public static WheelSpeedCalculations wscFlywheel;
+
 
     /**
      * This function is run when the robot is first started up and should be
@@ -46,6 +48,8 @@ public class Robot extends TimedRobot {
         timer = new Timer();
         timer.reset();
         timer.start();
+
+        wscFlywheel = new WheelSpeedCalculations("dataFiles/2-23-20_Compbot.ini");
 
         //Instantiate operator interface
         OI.GetInstance();
