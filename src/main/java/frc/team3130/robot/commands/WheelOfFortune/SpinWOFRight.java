@@ -18,7 +18,7 @@ public class SpinWOFRight implements Command {
      */
     @Override
     public void initialize() {
-    WheelOfFortune.motorSpin(.2);
+    WheelOfFortune.motorSpin(.5);
     }
 
     /**
