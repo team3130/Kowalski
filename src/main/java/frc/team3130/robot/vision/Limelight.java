@@ -274,7 +274,6 @@ public class Limelight {
         SmartDashboard.putNumber("Limelight Distance", o.getDistanceToTarget());
         SmartDashboard.putNumber("LimelightArea", o.area);
         SmartDashboard.putBoolean("Limelight Has Target", o.hasTrack());
-        SmartDashboard.putNumber("Limelight mounting angle",  Limelight.GetInstance().calibrate());
         SmartDashboard.putNumber("Limelight mounting angle", o.calibrate());
     }
 
