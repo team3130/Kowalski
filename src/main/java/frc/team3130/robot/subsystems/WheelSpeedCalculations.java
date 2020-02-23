@@ -37,7 +37,7 @@ public class WheelSpeedCalculations implements Subsystem {
 			distance = dist;
 			this.speed = speed;
 		}
-		
+		/**
 		public DataPoint(String point)
 		{
 			if(point.charAt(0) == '(' && point.charAt(point.length()-1) == ')' && point.contains(",")){
@@ -47,7 +47,7 @@ public class WheelSpeedCalculations implements Subsystem {
 				speed = Double.parseDouble(parts[1]);
 			}
 		}
-		
+		*/
 		@Override
 		public String toString()
 		{
@@ -73,14 +73,61 @@ public class WheelSpeedCalculations implements Subsystem {
 
 	private ArrayList<DataPoint> data_MainStorage;
 	private SplineInterpolator speedCurve;
-	private final String FILEPATH;
+	//private final String FILEPATH;
 
 	public WheelSpeedCalculations(String path)
 	{
-		FILEPATH = path;
+		//FILEPATH = path;
 		
 		data_MainStorage = new ArrayList<DataPoint>();
-		ReadFile();
+		data_MainStorage.add(new DataPoint(0.0, 3500));
+		data_MainStorage.add(new DataPoint(71.0, 3900));
+		data_MainStorage.add(new DataPoint(80.0, 3770));
+		data_MainStorage.add(new DataPoint(90.0, 3760));
+		data_MainStorage.add(new DataPoint(100.0, 3775));
+		data_MainStorage.add(new DataPoint(110.0, 3750));
+		data_MainStorage.add(new DataPoint(120.0, 3750));
+		data_MainStorage.add(new DataPoint(130.0, 3775));
+		data_MainStorage.add(new DataPoint(140.0, 3825));
+		data_MainStorage.add(new DataPoint(150.0, 3890));
+		data_MainStorage.add(new DataPoint(160.0, 3885));
+		data_MainStorage.add(new DataPoint(170.0, 3885));
+		data_MainStorage.add(new DataPoint(180.0, 3950));
+		data_MainStorage.add(new DataPoint(190.0, 4100));
+		data_MainStorage.add(new DataPoint(200.0, 4150));
+		data_MainStorage.add(new DataPoint(210.0, 4240));
+		data_MainStorage.add(new DataPoint(220.0, 4270));
+		data_MainStorage.add(new DataPoint(230.0, 4320));
+		data_MainStorage.add(new DataPoint(240.0, 4400));
+		data_MainStorage.add(new DataPoint(250.0, 4500));
+		data_MainStorage.add(new DataPoint(260.0, 4630));
+		data_MainStorage.add(new DataPoint(270.0, 4750));
+		data_MainStorage.add(new DataPoint(280.0, 4775));
+		data_MainStorage.add(new DataPoint(287.0, 5350));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		//ReadFile();
 		speedCurve = null;
 		ReloadCurve();
 	}
@@ -101,7 +148,7 @@ public class WheelSpeedCalculations implements Subsystem {
  		data_MainStorage.add(new DataPoint(dist, speed));
  		data_MainStorage.sort(compPoint);
  		SmartDashboard.putNumber("Number of Points", data_MainStorage.size());
- 		SaveToFile();
+ 		//SaveToFile();
  		ReloadCurve();
  	}
  	
@@ -118,7 +165,7 @@ public class WheelSpeedCalculations implements Subsystem {
 		
 		speedCurve = SplineInterpolator.createMonotoneCubicSpline(data_Dist, data_Speed);
 	}
-
+	/**
 	public void SaveToFile()
 	{
 		FileWriter out = null;
@@ -138,11 +185,12 @@ public class WheelSpeedCalculations implements Subsystem {
 			e.printStackTrace();
 		}
 	}
-	
+	*/
+	/**
 	public void ReadFile()
 	{
 		data_MainStorage.clear();
-		
+
 		System.out.println("Open Read");
 		
 		try(BufferedReader br = new BufferedReader(new FileReader(FILEPATH))) {
@@ -162,13 +210,13 @@ public class WheelSpeedCalculations implements Subsystem {
 		}
 		ReloadCurve();
 	}
-
+*/
 	public void WipeData()
 	{
 		data_MainStorage.clear();
 		data_MainStorage.add(new DataPoint(0,3000));	//TODO: Get resonable closest range values
 		data_MainStorage.add(new DataPoint(1000, 4000));	//TODO: Get resonable farthest range values
-		SaveToFile();
+		//SaveToFile();
 	}
 
 	public double GetSpeed(Double dist)

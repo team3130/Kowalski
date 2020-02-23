@@ -22,7 +22,7 @@ public class RobotMap {
     public static boolean kNavxReversed = true; //FIXME: check
 
     //Which Robot
-    public static boolean kUseCompbot = false;
+    public static boolean kUseCompbot = true;
 
     //Chassis
     public static Pose2d kChassisStartingPose = new Pose2d(0.0, 0.0, Rotation2d.fromDegrees(0.0));
