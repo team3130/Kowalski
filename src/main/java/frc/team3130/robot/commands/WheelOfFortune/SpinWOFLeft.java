@@ -18,7 +18,7 @@ public class SpinWOFLeft implements Command {
      */
     @Override
     public void initialize() {
-    WheelOfFortune.motorSpin(-.2);
+    WheelOfFortune.motorSpin(-.5);
     }
 
     /**
@@ -60,7 +60,7 @@ public class SpinWOFLeft implements Command {
      */
     @Override
     public void end(boolean interrupted) {
-
+    WheelOfFortune.motorSpin((0));
     }
 
     /**

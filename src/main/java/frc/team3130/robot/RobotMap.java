@@ -148,7 +148,7 @@ public class RobotMap {
     public static final int CAN_LEFTMOTORFRONT = 4;
     public static final int CAN_LEFTMOTORREAR = 5;
 
-    public static final int CAN_WHEELOFFORTUNE = 107; //TODO: This is wrong
+    public static final int CAN_WHEELOFFORTUNE = 15; 
 
     public static final int CAN_SKYWALKER = 106; //TODO: map this
     public static final int CAN_CLIMBER1 = 7; //TODO: also map this because I put a random number in
