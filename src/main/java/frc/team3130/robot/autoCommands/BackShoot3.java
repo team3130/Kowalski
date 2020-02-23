@@ -7,46 +7,39 @@
 
 package frc.team3130.robot.autoCommands;
 
-import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
-import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
 import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.team3130.robot.commands.Flywheel.SpinFlywheel;
-import frc.team3130.robot.commands.Hopper.HopperIn;
-import frc.team3130.robot.commands.Turret.ToggleTurretAim;
 
 
 public class BackShoot3 extends SequentialCommandGroup {
 	private AutoDriveStraightToPoint driveBack;
-	private AutoTurretAngle adjustAim;
+	private AutoDelay wait;
+	private AutoDelay shoot1Delay;
 
 	/**
 	 * Creates a new BackShoot3.
 	 */
 	public BackShoot3() {
 		driveBack = new AutoDriveStraightToPoint();
-		adjustAim = new AutoTurretAngle();
+		wait = new AutoDelay(7);
+		shoot1Delay = new AutoDelay(3);
 
 		// Add your commands in the super() call, e.g.
 		// super(new FooCommand(), new BarCommand());
 		addCommands(
-			new ParallelRaceGroup(new ParallelCommandGroup(driveBack, adjustAim), new AutoDelay(1.5)),//need both driveBack and adjustAim done, or AutoDelay times out
-			new ToggleTurretAim(), //Assume aim is off prior to
-			new ParallelRaceGroup(new AutoShootAll(), new AutoDelay(3)) //Shoot All Balls
+			new ParallelRaceGroup(driveBack,new AutoDelay(2)),
+			wait,
+			shoot1Delay//Replace with Shoot command
 		);
 	}
 
 	@Override
 	public void initialize(){
 		driveBack.SetParam(
-			-24,
-			4,
-			0.7,
+			24,
+			2,
+			0.5,
 			false
-		);
-
-		adjustAim.setParam(
-			15
 		);
 
 		super.initialize();		
