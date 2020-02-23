@@ -1,16 +1,23 @@
 package frc.team3130.robot;
 
+import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
+import edu.wpi.first.wpilibj.*;
+import edu.wpi.first.wpilibj.geometry.Rotation2d;
+import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.RobotState;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.team3130.robot.commands.Chassis.DefaultDrive;
 import frc.team3130.robot.commands.Turret.ManualTurretAim;
+import frc.team3130.robot.sensors.Navx;
 import frc.team3130.robot.subsystems.*;
 import frc.team3130.robot.vision.Limelight;
+
 
 import static frc.team3130.robot.OI.driverGamepad;
 
@@ -30,6 +37,7 @@ public class Robot extends TimedRobot {
 
     boolean gettime = true;
     boolean checkif = true;
+
 
 
     /**
@@ -59,6 +67,8 @@ public class Robot extends TimedRobot {
         scheduler.registerSubsystem(WheelOfFortune.getInstance());
 
         Limelight.GetInstance().setLedState(false); //Turn vision tracking off when robot boots up
+
+
 
     }
 
@@ -94,6 +104,7 @@ public class Robot extends TimedRobot {
     public void robotPeriodic() {
         outputToShuffleboard();
         Limelight.GetInstance().updateData();
+        Chassis.m_odometry.update(Rotation2d.fromDegrees(Navx.getHeading()), Chassis.getDistanceL(), Chassis.getDistanceR());
     }
 
     /**
@@ -107,9 +118,14 @@ public class Robot extends TimedRobot {
      * the switch structure below with additional strings. If using the
      * SendableChooser make sure to add them to the chooser code above as well.
      */
+
+    //This should tell the robot when auton starts
+    private double startTime;
+
     @Override
     public void autonomousInit() {
         resetSubsystems();
+
     }
 
     /**
@@ -118,7 +134,11 @@ public class Robot extends TimedRobot {
     @Override
     public void autonomousPeriodic() {
         scheduler.run();
+
+
     }
+
+
 
     /**
      * This function is called periodically during operator control.
@@ -143,6 +163,7 @@ public class Robot extends TimedRobot {
         Hopper.outputToShuffleboard();
         Limelight.outputToShuffleboard();
         Flywheel.outputToShuffleboard();
+
 
         if (RobotState.isEnabled() && Turret.isOnTarget() && checkif) {
             if (gettime == true) {

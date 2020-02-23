@@ -1,15 +1,27 @@
 package frc.team3130.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.StatusFrameEnhanced;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.geometry.Pose2d;
+import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.util.Units;
 import edu.wpi.first.wpilibj2.command.Subsystem;
 import frc.team3130.robot.RobotMap;
+import edu.wpi.first.wpilibj.kinematics.DifferentialDriveKinematics;
+import edu.wpi.first.wpilibj.kinematics.DifferentialDriveOdometry;
+import edu.wpi.first.wpilibj.kinematics.DifferentialDriveWheelSpeeds;
+import frc.team3130.robot.sensors.Navx;
+
+import static frc.team3130.robot.RobotMap.kChassisCodesPerRev;
+import static frc.team3130.robot.RobotMap.kLWheelDiameter;
+
 
 public class Chassis implements Subsystem {
 
@@ -19,10 +31,15 @@ public class Chassis implements Subsystem {
     private static WPI_TalonFX m_rightMotorFront;
     private static WPI_TalonFX m_rightMotorRear;
 
+
     private static DifferentialDrive m_drive;
 
     private static Solenoid m_shifter;
 
+
+
+    //DifferentialDriveKinematics kinematics = new DifferentialDriveKinematics(Units.inchesToMeters(RobotMap.kChassisWidth));
+    public static DifferentialDriveOdometry m_odometry;
     //Create and define all standard data types needed
 
     /**
@@ -157,6 +174,14 @@ public class Chassis implements Subsystem {
         return !m_shifter.get();
     }
 
+    public Pose2d getPose(){
+        return m_odometry.getPoseMeters();
+    }
+
+    public void resetOdometry(Pose2d pose){
+        reset();
+        m_odometry.resetPosition(pose, Rotation2d.fromDegrees(Navx.getHeading()));
+    }
     /**
      * Gets absolute distance traveled by the left side of the robot
      *
@@ -260,7 +285,7 @@ public class Chassis implements Subsystem {
     }
 
     //Configs
-
+    
     /**
      * Set the drive talons to either Brake or Coast mode
      *
