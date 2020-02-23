@@ -12,6 +12,8 @@ import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.team3130.robot.commands.Flywheel.SpinFlywheel;
 import frc.team3130.robot.commands.Hopper.HopperIn;
+import frc.team3130.robot.commands.Turret.AutonStartTurretAim;
+import frc.team3130.robot.commands.Turret.ToggleTurretAim;
 
 
 public class AutoShootAll extends ParallelCommandGroup {
@@ -22,8 +24,8 @@ public class AutoShootAll extends ParallelCommandGroup {
 		// Add your commands in the super() call, e.g.
 		// super(new FooCommand(), new BarCommand());super();
 		super(
-			new ParallelRaceGroup(new SpinFlywheel(), new AutoDelay(3)), new SequentialCommandGroup(//Spin flywheel through next part
-				new ParallelRaceGroup(new HopperIn(true), new AutoDelay(3)))
+				new AutonStartTurretAim(), new AutoDelay(.3),
+			new ParallelRaceGroup(new ClearHopper(), new AutoDelay(3))
 		);
 	}
 }

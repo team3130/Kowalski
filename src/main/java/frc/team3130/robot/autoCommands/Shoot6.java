@@ -36,7 +36,7 @@ public class Shoot6 extends SequentialCommandGroup {
 		// super(new FooCommand(), new BarCommand());
 		addCommands(
 			new ParallelRaceGroup(driveBack20,new AutoDelay(2)),
-			shoot1Delay,//Replace with Shoot command
+			new AutoShootAll(),
 			new ParallelRaceGroup(intakeTurn, new AutoDelay(2)),
 			new ParallelDeadlineGroup(
 				new ParallelRaceGroup(driveBackIntake, new AutoDelay(4)),
@@ -44,7 +44,7 @@ public class Shoot6 extends SequentialCommandGroup {
 			),
 			new AutoDelay(0.75),
 			new ParallelRaceGroup(driveUp, new AutoDelay(8)),
-			shoot2Delay//Replace with shoot command
+			new AutoShootAll()
 		);
 	}
 

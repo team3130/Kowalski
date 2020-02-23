@@ -155,6 +155,11 @@ public class Turret implements Subsystem {
         setAimState(!isTurretAiming());
     }
 
+    public static void StartAimingLimelight(){
+        setAimState(true);
+    }
+
+
     /**
      * Whether the turret is in Limelight-assisted aiming mode
      *
