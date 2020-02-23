@@ -60,7 +60,6 @@ public class ToggleWOF implements Command {
      */
     @Override
     public void end(boolean interrupted) {
-
     }
 
     /**
