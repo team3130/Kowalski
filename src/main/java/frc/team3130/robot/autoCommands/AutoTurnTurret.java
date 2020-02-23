@@ -1,20 +1,17 @@
-package frc.team3130.robot.commands.Flywheel;
+package frc.team3130.robot.autoCommands;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Subsystem;
-import frc.team3130.robot.subsystems.Flywheel;
-import frc.team3130.robot.subsystems.Hood;
+import frc.team3130.robot.subsystems.ExampleSubsystem;
 import frc.team3130.robot.subsystems.Turret;
-import frc.team3130.robot.vision.Limelight;
 
 import java.util.Set;
 
-public class SetFlywheelRPM implements Command {
+public class AutoTurnTurret implements Command {
     private final Set<Subsystem> subsystems;
 
-
-    public SetFlywheelRPM() {
-        this.subsystems = Set.of(Flywheel.getInstance(), Hood.getInstance());
+    public AutoTurnTurret() {
+        this.subsystems = Set.of(Turret.getInstance());
     }
 
     /**
@@ -22,15 +19,7 @@ public class SetFlywheelRPM implements Command {
      */
     @Override
     public void initialize() {
-        double x = Limelight.GetInstance().getDistanceToTarget();
-
-
-            Hood.setPistons(false);
-            //Flywheel.setSpeed((Math.pow(Limelight.GetInstance().getDistanceToTarget(), 4) / (40 * Math.pow(10,5)) + 3625)); //The Tomas
-
-
-            Flywheel.setSpeed((0.000007 * Math.pow(x, 4)) - (0.004 * Math.pow(x, 3)) + (0.7817 * Math.pow(x, 2)) - (57.797 * x) + 4807.7); //The Archit
-
+Turret.setAngle(-90);
     }
 
     /**
@@ -39,6 +28,7 @@ public class SetFlywheelRPM implements Command {
      */
     @Override
     public void execute() {
+
     }
 
     /**
@@ -57,6 +47,7 @@ public class SetFlywheelRPM implements Command {
      */
     @Override
     public boolean isFinished() {
+        // TODO: Make this return true when this Command no longer needs to run execute()
         return false;
     }
 
@@ -70,7 +61,7 @@ public class SetFlywheelRPM implements Command {
      */
     @Override
     public void end(boolean interrupted) {
-        Flywheel.stop();
+
     }
 
     /**

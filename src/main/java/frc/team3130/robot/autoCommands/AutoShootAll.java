@@ -24,8 +24,9 @@ public class AutoShootAll extends ParallelCommandGroup {
 		// Add your commands in the super() call, e.g.
 		// super(new FooCommand(), new BarCommand());super();
 		super(
+
 				new AutonStartTurretAim(), new AutoDelay(.3),
-			new ParallelRaceGroup(new ClearHopper(), new AutoDelay(3))
+			new ParallelRaceGroup(new SpinFlywheel(), new HopperIn(), new AutoDelay(3))
 		);
 	}
 }

@@ -35,6 +35,7 @@ public class Shoot6 extends SequentialCommandGroup {
 		// Add your commands in the super() call, e.g.
 		// super(new FooCommand(), new BarCommand());
 		addCommands(
+			new AutoTurnTurret(),
 			new ParallelRaceGroup(driveBack20,new AutoDelay(2)),
 			new AutoShootAll(),
 			new ParallelRaceGroup(intakeTurn, new AutoDelay(2)),

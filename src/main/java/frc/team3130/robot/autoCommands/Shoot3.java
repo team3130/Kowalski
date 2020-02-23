@@ -22,19 +22,20 @@ public class Shoot3 extends SequentialCommandGroup {
 	public Shoot3() {
 		driveBack = new AutoDriveStraightToPoint();
 		wait = new AutoDelay(7);
-		shoot1Delay = new AutoDelay(3);
 
 		// Add your commands in the super() call, e.g.
 		// super(new FooCommand(), new BarCommand());
 		addCommands(
+				new AutoTurnTurret(),
 			new ParallelRaceGroup(driveBack,new AutoDelay(2)),
 			wait,
-			shoot1Delay//Replace with Shoot command
+			new ParallelRaceGroup(new AutoShootAll(), new AutoDelay(4))
 		);
 	}
 
 	@Override
 	public void initialize(){
+
 		driveBack.SetParam(
 			24,
 			2,
