@@ -15,7 +15,7 @@ public class DeployClimber implements Command {
     private Timer timer;
 
     public DeployClimber() {
-        this.subsystems = Set.of(Winch.getInstance());
+        this.subsystems = Set.of(ArmClimber.getInstance());
         timer = new Timer();
     }
 
@@ -74,7 +74,7 @@ public class DeployClimber implements Command {
     @Override
     public void end(boolean interrupted) {
         if (interrupted) {
-            DriverStation.reportError("BRUH momento", false);
+            DriverStation.reportError("Climb interrupted, BRUH", false);
         }
     }
 

@@ -75,7 +75,7 @@ public class RetakeClimber implements Command {
     @Override
     public void end(boolean interrupted) {
         if (interrupted) {
-            DriverStation.reportError("BRUH momento", false);
+            DriverStation.reportError("Interrupted climb retake, BRUh", false);
         }
     }
 
