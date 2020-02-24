@@ -9,11 +9,6 @@ import frc.team3130.robot.RobotMap;
 
 public class ArmClimber implements Subsystem {
 
-    //Create necessary objects
-    private static WPI_TalonSRX m_skyWalker;
-    private static WPI_TalonSRX m_climberWinchMaster;
-    private static WPI_VictorSPX m_climberWinchSlave;
-
     private static Solenoid m_Leia;
     private static Solenoid m_Luke;
 
@@ -35,10 +30,6 @@ public class ArmClimber implements Subsystem {
     }
 
     private ArmClimber() {
-        // m_skyWalker = new WPI_TalonSRX(RobotMap.CAN_SKYWALKER);
-        m_climberWinchMaster = new WPI_TalonSRX(RobotMap.CAN_CLIMBER1);
-        m_climberWinchSlave = new WPI_VictorSPX(RobotMap.CAN_CLIMBER2);
-
         m_Leia = new Solenoid(RobotMap.CAN_PNMMODULE, RobotMap.PNM_LEIA);
         m_Luke = new Solenoid(RobotMap.CAN_PNMMODULE, RobotMap.PNM_LUKE);
 
@@ -49,14 +40,6 @@ public class ArmClimber implements Subsystem {
         m_skyWalker.set(spin);
     }
     */
-
-    public static void leftFlier(double spin) {
-        m_climberWinchMaster.set(spin);
-    }
-
-    public static void rightFlier(double spin) {
-        m_climberWinchSlave.set(ControlMode.PercentOutput, spin);
-    }
 
     //method for deploying wheel to be called in a command
     public static void deployLeia() {
