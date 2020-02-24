@@ -128,6 +128,7 @@ public class RobotMap {
 
     //Intake
     public static double kIntakeTriggerDeadband = 0.4;
+    public static double kIntakeSpeed = (kUseCompbot ? .8 : .5);
 
     /**
      * Field parameters

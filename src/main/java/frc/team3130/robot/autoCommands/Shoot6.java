@@ -10,12 +10,13 @@ package frc.team3130.robot.autoCommands;
 import edu.wpi.first.wpilibj2.command.ParallelDeadlineGroup;
 import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import frc.team3130.robot.commands.Intake.IntakeIn;
 
 public class Shoot6 extends SequentialCommandGroup {
 	AutoDriveStraightToPoint driveBack20;
 	AutoDelay shoot1Delay;
 	AutoTurn intakeTurn;
-	AutoIntakeIn intake;
+	IntakeIn intake;
 	AutoDriveStraightToPoint driveBackIntake;
 	AutoDriveStraightToPoint driveUp;
 	AutoDelay shoot2Delay;
@@ -27,7 +28,7 @@ public class Shoot6 extends SequentialCommandGroup {
 		driveBack20 = new AutoDriveStraightToPoint();
 		shoot1Delay = new AutoDelay(2);
 		intakeTurn = new AutoTurn();
-		intake = new AutoIntakeIn();
+		intake = new IntakeIn();
 		driveBackIntake = new AutoDriveStraightToPoint();
 		driveUp = new AutoDriveStraightToPoint();
 		shoot2Delay = new AutoDelay(3);
@@ -35,8 +36,7 @@ public class Shoot6 extends SequentialCommandGroup {
 		// Add your commands in the super() call, e.g.
 		// super(new FooCommand(), new BarCommand());
 		addCommands(
-			new AutoTurnTurret(),
-			new ParallelRaceGroup(driveBack20,new AutoDelay(2)),
+			new ParallelRaceGroup(new AutoTurnTurret(), driveBack20,new AutoDelay(2)),
 			new AutoShootAll(),
 			new ParallelRaceGroup(intakeTurn, new AutoDelay(2)),
 			new ParallelDeadlineGroup(
@@ -67,14 +67,14 @@ public class Shoot6 extends SequentialCommandGroup {
 		driveBackIntake.SetParam(
 			12*13,
 			6,
-			0.5,
+			0.35,
 			true
 		);
 
 		driveUp.SetParam(
 			-12*13,
 			6,
-			0.8,
+			0.6,
 			true
 		);
 

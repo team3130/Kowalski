@@ -2,6 +2,7 @@ package frc.team3130.robot.commands.Intake;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Subsystem;
+import frc.team3130.robot.RobotMap;
 import frc.team3130.robot.subsystems.Intake;
 
 import java.util.Set;
@@ -18,7 +19,7 @@ public class IntakeIn implements Command {
      */
     @Override
     public void initialize() {
-        Intake.runIntake(.5);
+        Intake.runIntake(RobotMap.kIntakeSpeed);
         Intake.deployIntake();
     }
 
