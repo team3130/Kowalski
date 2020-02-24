@@ -16,6 +16,8 @@ import frc.team3130.robot.commands.WheelOfFortune.SpinWOFLeft;
 import frc.team3130.robot.commands.WheelOfFortune.SpinWOFRight;
 import frc.team3130.robot.commands.WheelOfFortune.ToggleWOF;
 import frc.team3130.robot.controls.JoystickTrigger;
+import frc.team3130.robot.commands.Climber.Winch.ClimberPull;
+import frc.team3130.robot.commands.Climber.Winch.ClimberUnPull;
 
 public class OI {
 
@@ -99,10 +101,8 @@ public class OI {
 
         toggleClimber.whenPressed(new DeployClimber());
         RetakeClimber.whenPressed(new RetakeClimber());
-        RightWinchPull.whenHeld(new RightClimberPull());
-        LeftWinchPull.whenHeld(new LeftClimberPull());
-        RightWinchUnpull.whenHeld(new RightClimberUnpull());
-        LeftWinchUnpull.whenHeld(new LeftClimberUnpull());
+        LeftWinchPull.whenHeld(new ClimberPull());
+        RightWinchUnpull.whenHeld(new ClimberUnPull());
 
         toggleWOF.whenPressed(new ToggleWOF());
         WOFLeft.whenHeld(new SpinWOFLeft());
