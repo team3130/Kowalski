@@ -10,7 +10,7 @@ package frc.team3130.robot.autoCommands;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.ParallelRaceGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
-import frc.team3130.robot.commands.Flywheel.SpinFlywheel;
+import frc.team3130.robot.commands.Flywheel.SetFlywheelRPM;
 import frc.team3130.robot.commands.Hopper.HopperIn;
 import frc.team3130.robot.commands.Turret.AutonStartTurretAim;
 import frc.team3130.robot.commands.Turret.ToggleTurretAim;
@@ -26,7 +26,7 @@ public class AutoShootAll extends ParallelCommandGroup {
 		super(
 
 				new AutonStartTurretAim(), new AutoDelay(.3),
-			new ParallelRaceGroup(new SpinFlywheel(), new HopperIn(), new AutoDelay(3))
+			new ParallelRaceGroup(new SetFlywheelRPM(), new HopperIn(), new AutoDelay(3))
 		);
 	}
 }

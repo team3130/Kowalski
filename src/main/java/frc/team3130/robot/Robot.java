@@ -132,24 +132,12 @@ public class Robot extends TimedRobot {
 
         determineAuto();
 
-        if(autonomousCommand!=null){
-            autonomousCommand.schedule();
-        }
+        autonomousCommand.schedule();
+
     }
 
     private void determineAuto(){
-        switch(chooser.getSelected()){
-            case "None":
-                break;
-
-            case "3Ball":
-                autonomousCommand = new Shoot3();
-                break;
-
-            case "6Ball":
-                autonomousCommand = new Shoot6();
-                break;
-        }
+        autonomousCommand = new Shoot3();
     }
 
     /**
@@ -183,7 +171,7 @@ public class Robot extends TimedRobot {
         Chassis.outputToShuffleboard();
         Turret.outputToShuffleboard();
         Hopper.outputToShuffleboard();
-        //Limelight.outputToShuffleboard();
+        Limelight.outputToShuffleboard();
         Flywheel.outputToShuffleboard();
 
         SmartDashboard.putNumber("Angle: ",Chassis.getAngle());

@@ -21,13 +21,13 @@ public class Shoot3 extends SequentialCommandGroup {
 	 */
 	public Shoot3() {
 		driveBack = new AutoDriveStraightToPoint();
-		wait = new AutoDelay(7);
+		wait = new AutoDelay(5);
 
 		// Add your commands in the super() call, e.g.
 		// super(new FooCommand(), new BarCommand());
 		addCommands(
-				new AutoTurnTurret(),
 			new ParallelRaceGroup(driveBack,new AutoDelay(2)),
+			new ParallelRaceGroup(new AutoTurnTurret(), new AutoDelay(2)),
 			wait,
 			new ParallelRaceGroup(new AutoShootAll(), new AutoDelay(4))
 		);

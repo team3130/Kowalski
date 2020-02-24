@@ -19,7 +19,7 @@ public class AutoTurnTurret implements Command {
      */
     @Override
     public void initialize() {
-Turret.setAngle(-90);
+Turret.setAngle(-180);
     }
 
     /**
