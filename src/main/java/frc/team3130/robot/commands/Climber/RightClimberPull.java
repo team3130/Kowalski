@@ -2,7 +2,7 @@ package frc.team3130.robot.commands.Climber;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Subsystem;
-import frc.team3130.robot.subsystems.climber.Climber;
+import frc.team3130.robot.subsystems.climber.Winch;
 import frc.team3130.robot.subsystems.ExampleSubsystem;
 
 import java.util.Set;
@@ -19,7 +19,7 @@ public class RightClimberPull implements Command {
      */
     @Override
     public void initialize() {
-        Climber.rightFlier(-0.3);
+        Winch.rightFlier(-0.3);
     }
 
     /**
@@ -60,7 +60,7 @@ public class RightClimberPull implements Command {
      */
     @Override
     public void end(boolean interrupted) {
-        Climber.rightFlier(0);
+        Winch.rightFlier(0);
     }
 
     /**

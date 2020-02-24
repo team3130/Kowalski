@@ -7,7 +7,7 @@ import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj2.command.Subsystem;
 import frc.team3130.robot.RobotMap;
 
-public class Climber implements Subsystem {
+public class Winch implements Subsystem {
 
     //Create necessary objects
     private static WPI_TalonSRX m_skyWalker;
@@ -23,18 +23,18 @@ public class Climber implements Subsystem {
      * The Singleton instance of this Climber. External classes should
      * use the {@link #getInstance()} method to get the instance.
      */
-    private final static Climber INSTANCE = new Climber();
+    private final static Winch INSTANCE = new Winch();
 
     /**
      * Returns the Singleton instance of this Climber. This static method
      * should be used -- {@code Climber.getInstance();} -- by external
      * classes, rather than the constructor to get the instance of this class.
      */
-    public static Climber getInstance() {
+    public static Winch getInstance() {
         return INSTANCE;
     }
 
-    private Climber() {
+    private Winch() {
         // m_skyWalker = new WPI_TalonSRX(RobotMap.CAN_SKYWALKER);
         m_climberWinchMaster = new WPI_TalonSRX(RobotMap.CAN_CLIMBER1);
         m_climberWinchSlave = new WPI_VictorSPX(RobotMap.CAN_CLIMBER2);

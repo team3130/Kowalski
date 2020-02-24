@@ -4,7 +4,7 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Subsystem;
-import frc.team3130.robot.subsystems.climber.Climber;
+import frc.team3130.robot.subsystems.climber.Winch;
 
 import java.util.Set;
 
@@ -14,7 +14,7 @@ public class DeployClimber implements Command {
     private Timer timer;
 
     public DeployClimber() {
-        this.subsystems = Set.of(Climber.getInstance());
+        this.subsystems = Set.of(Winch.getInstance());
         timer = new Timer();
     }
 
@@ -23,7 +23,7 @@ public class DeployClimber implements Command {
      */
     @Override
     public void initialize() {
-        Climber.deployLeia();
+        Winch.deployLeia();
         timer.reset();
         timer.start();
     }
@@ -54,7 +54,7 @@ public class DeployClimber implements Command {
     @Override
     public boolean isFinished() {
         if (timer.get() > 3) {
-            Climber.deployLuke();
+            Winch.deployLuke();
             return true;
         }
         else{
