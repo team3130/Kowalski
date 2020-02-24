@@ -13,7 +13,7 @@ public class ToggleLuke implements Command {
     private final Set<Subsystem> subsystems;
 
     public ToggleLuke() {
-        this.subsystems = Set.of(ExampleSubsystem.getInstance());
+        this.subsystems = Set.of(ArmClimber.getInstance());
     }
 
     /**

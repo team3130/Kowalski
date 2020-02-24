@@ -15,7 +15,7 @@ public class RetakeClimber implements Command {
     private Timer timer;
 
     public RetakeClimber() {
-        this.subsystems = Set.of(Winch.getInstance());
+        this.subsystems = Set.of(ArmClimber.getInstance());
         timer = new Timer();
     }
 
