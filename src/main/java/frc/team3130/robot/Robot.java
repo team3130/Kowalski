@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.team3130.robot.commands.Chassis.DefaultDrive;
 import frc.team3130.robot.commands.Turret.ManualTurretAim;
 import frc.team3130.robot.subsystems.*;
+import frc.team3130.robot.subsystems.climber.Climber;
 import frc.team3130.robot.vision.Limelight;
 
 import static frc.team3130.robot.OI.driverGamepad;
