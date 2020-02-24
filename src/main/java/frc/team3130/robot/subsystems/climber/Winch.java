@@ -14,8 +14,6 @@ public class Winch implements Subsystem {
     private static WPI_TalonSRX m_climberWinchMaster;
     private static WPI_VictorSPX m_climberWinchSlave;
 
-    private static Solenoid m_Leia;
-    private static Solenoid m_Luke;
 
     //Create and define all standard data types needed
 
@@ -39,8 +37,7 @@ public class Winch implements Subsystem {
         m_climberWinchMaster = new WPI_TalonSRX(RobotMap.CAN_CLIMBER1);
         m_climberWinchSlave = new WPI_VictorSPX(RobotMap.CAN_CLIMBER2);
 
-        m_Leia = new Solenoid(RobotMap.CAN_PNMMODULE, RobotMap.PNM_LEIA);
-        m_Luke = new Solenoid(RobotMap.CAN_PNMMODULE, RobotMap.PNM_LUKE);
+
 
     }
 
@@ -59,23 +56,15 @@ public class Winch implements Subsystem {
     }
 
     //method for deploying wheel to be called in a command
-    public static void deployLeia() {
-        m_Leia.set(true);
-    }
+
 
     //method for deploying wheel to be called in a command
-    public static void deployLuke() {
-        m_Luke.set(true);
-    }
+
 
     //method for retracting climberLeia to be called in a command
-    public static void RetractLeia() {
-        m_Leia.set(false);
-    }
+
 
     //method for retracting climberLuke to be called in a command
-    public static void retractLuke() {
-        m_Leia.set(false);
-    }
+
 }
 
