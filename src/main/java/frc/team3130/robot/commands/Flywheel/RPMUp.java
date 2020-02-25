@@ -1,22 +1,17 @@
-package frc.team3130.robot.commands.Climber;
+package frc.team3130.robot.commands.Flywheel;
 
-import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Subsystem;
-import frc.team3130.robot.subsystems.climber.ArmClimber;
-import frc.team3130.robot.subsystems.climber.Winch;
+import frc.team3130.robot.subsystems.ExampleSubsystem;
+import frc.team3130.robot.subsystems.Turret;
 
 import java.util.Set;
 
-public class RetakeClimber implements Command {
+public class RPMUp implements Command {
     private final Set<Subsystem> subsystems;
 
-    private double timeInbetween;
-
-    public RetakeClimber() {
-        this.subsystems = Set.of(ArmClimber.getInstance());
-
+    public RPMUp() {
+        this.subsystems = Set.of(Turret.getInstance());
     }
 
     /**
@@ -24,8 +19,6 @@ public class RetakeClimber implements Command {
      */
     @Override
     public void initialize() {
-        ArmClimber.retractLuke();
-        timeInbetween = Timer.getFPGATimestamp();
 
     }
 
@@ -35,9 +28,7 @@ public class RetakeClimber implements Command {
      */
     @Override
     public void execute() {
-        if(Timer.getFPGATimestamp() - timeInbetween >= 2){
-            ArmClimber.retractLeia();
-        }
+
     }
 
     /**
@@ -56,13 +47,10 @@ public class RetakeClimber implements Command {
      */
     @Override
     public boolean isFinished() {
-        if (Timer.getFPGATimestamp() - timeInbetween >= 3.1){
-            return true;
-        }else{
-            return false;
-        }
-
+        // TODO: Make this return true when this Command no longer needs to run execute()
+        return false;
     }
+
     /**
      * The action to take when the command ends. Called when either the command
      * finishes normally -- that is it is called when {@link #isFinished()} returns
@@ -73,9 +61,7 @@ public class RetakeClimber implements Command {
      */
     @Override
     public void end(boolean interrupted) {
-        if (interrupted) {
-            DriverStation.reportError("Climb interrupted, BRUH", false);
-        }
+
     }
 
     /**

@@ -12,11 +12,11 @@ import java.util.Set;
 public class DeployClimber implements Command {
     private final Set<Subsystem> subsystems;
 
-    private Timer timer;
+    private double timeInbetween;
 
     public DeployClimber() {
         this.subsystems = Set.of(ArmClimber.getInstance());
-        timer = new Timer();
+
     }
 
     /**
@@ -25,8 +25,8 @@ public class DeployClimber implements Command {
     @Override
     public void initialize() {
         ArmClimber.deployLeia();
-        timer.reset();
-        timer.start();
+        timeInbetween = Timer.getFPGATimestamp();
+
     }
 
     /**
@@ -35,7 +35,9 @@ public class DeployClimber implements Command {
      */
     @Override
     public void execute() {
-
+    if(Timer.getFPGATimestamp() - timeInbetween >= 2){
+        ArmClimber.deployLuke();
+    }
     }
 
     /**
@@ -54,13 +56,11 @@ public class DeployClimber implements Command {
      */
     @Override
     public boolean isFinished() {
-        if (timer.get() > 3) {
-            ArmClimber.deployLuke();
-            return true;
-        }
-        else{
-            return false;
-        }
+    if (Timer.getFPGATimestamp() - timeInbetween >= 3){
+        return true;
+    }else{
+        return false;
+    }
 
     }
     /**

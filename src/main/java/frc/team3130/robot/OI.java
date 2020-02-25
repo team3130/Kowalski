@@ -69,15 +69,18 @@ public class OI {
      * Weapons
      */
     private static JoystickTrigger RightWinchUnpull = new JoystickTrigger(weaponsGamepad, RobotMap.LST_AXS_RTRIGGER);
-    private static JoystickTrigger LeftWinchUnpull = new JoystickTrigger(weaponsGamepad, RobotMap.LST_AXS_LTRIGGER);
+    //private static JoystickTrigger LeftWinchUnpull = new JoystickTrigger(weaponsGamepad, RobotMap.LST_AXS_LTRIGGER);
 
-    private static JoystickButton toggleClimber = new JoystickButton(weaponsGamepad, RobotMap.LST_BTN_MENU); //Menu button
+    private static JoystickButton DeployClimber = new JoystickButton(weaponsGamepad, RobotMap.LST_BTN_MENU); //Menu button
     private static JoystickButton RetakeClimber = new JoystickButton(weaponsGamepad, RobotMap.LST_BTN_WINDOW); //Windows button
-    private static JoystickButton RightWinchPull = new JoystickButton(weaponsGamepad, RobotMap.LST_BTN_RBUMPER);
-    private static JoystickButton LeftWinchPull = new JoystickButton(weaponsGamepad, RobotMap.LST_BTN_LBUMPER);
+    //private static JoystickButton RightWinchPull = new JoystickButton(weaponsGamepad, RobotMap.LST_BTN_RBUMPER);
+    private static JoystickButton LeftWinchPull = new JoystickButton(weaponsGamepad, RobotMap.LST_BTN_RBUMPER);
     private static JoystickButton toggleWOF = new JoystickButton(weaponsGamepad, RobotMap.LST_BTN_A);
     private static JoystickButton WOFLeft = new JoystickButton(weaponsGamepad, RobotMap.LST_BTN_X);
     private static JoystickButton WOFRight = new JoystickButton(weaponsGamepad, RobotMap.LST_BTN_B);
+    private static JoystickTrigger RPMUp = new JoystickTrigger(weaponsGamepad, RobotMap.LST_POV_N);
+    private static JoystickTrigger RPMDown = new JoystickTrigger(weaponsGamepad, RobotMap.LST_POV_S);
+
 
 
     // Binding the buttons and triggers that are defined above to respective commands
@@ -99,7 +102,7 @@ public class OI {
 
         toggleIntake.whenPressed(new ToggleIntake());
 
-        toggleClimber.whenPressed(new DeployClimber());
+        DeployClimber.whenPressed(new DeployClimber());
         RetakeClimber.whenPressed(new RetakeClimber());
         LeftWinchPull.whenHeld(new ClimberPull());
         RightWinchUnpull.whenHeld(new ClimberUnPull());

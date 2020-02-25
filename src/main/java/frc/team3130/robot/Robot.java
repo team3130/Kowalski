@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.team3130.robot.commands.Chassis.DefaultDrive;
 import frc.team3130.robot.commands.Turret.ManualTurretAim;
 import frc.team3130.robot.subsystems.*;
+import frc.team3130.robot.subsystems.climber.ArmClimber;
 import frc.team3130.robot.subsystems.climber.Winch;
 import frc.team3130.robot.vision.Limelight;
 
@@ -61,12 +62,16 @@ public class Robot extends TimedRobot {
 
         Limelight.GetInstance().setLedState(false); //Turn vision tracking off when robot boots up
 
+
+
     }
 
 
     @Override
     public void teleopInit() {
         Chassis.configBrakeMode(true);
+        Winch.setBreakWinchMaster();
+        Winch.setBreakWinchSlave();
     }
 
     @Override
@@ -75,6 +80,10 @@ public class Robot extends TimedRobot {
         Intake.retakeIntake();
         Hood.setPistons(false);
         WheelOfFortune.retractWheel();
+        ArmClimber.retractLeia();
+        ArmClimber.retractLuke();
+        Winch.setCoastWinchMaster();
+        Winch.setCoastWinchSlave();
     }
 
     @Override

@@ -1,6 +1,7 @@
 package frc.team3130.robot.subsystems.climber;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import edu.wpi.first.wpilibj.Solenoid;
@@ -54,6 +55,13 @@ public class Winch implements Subsystem {
     public static void rightFlier(double spin) {
         m_climberWinchSlave.set(ControlMode.PercentOutput, spin);
     }
+
+    public static void setBreakWinchMaster(){m_climberWinchMaster.setNeutralMode(NeutralMode.Brake);}
+    public static void setBreakWinchSlave(){m_climberWinchMaster.setNeutralMode(NeutralMode.Brake);}
+
+    public static void setCoastWinchMaster(){m_climberWinchMaster.setNeutralMode(NeutralMode.Coast);}
+    public static void setCoastWinchSlave(){m_climberWinchMaster.setNeutralMode(NeutralMode.Coast);}
+
 
     //method for deploying wheel to be called in a command
 

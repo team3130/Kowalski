@@ -30,8 +30,8 @@ public class ArmClimber implements Subsystem {
     }
 
     private ArmClimber() {
-        m_Leia = new Solenoid(RobotMap.CAN_PNMMODULE, RobotMap.PNM_LEIA);
-        m_Luke = new Solenoid(RobotMap.CAN_PNMMODULE, RobotMap.PNM_LUKE);
+        m_Luke = new Solenoid(RobotMap.CAN_PNMMODULE, RobotMap.PNM_LEIA);
+        m_Leia = new Solenoid(RobotMap.CAN_PNMMODULE, RobotMap.PNM_LUKE);
 
     }
 
@@ -52,13 +52,13 @@ public class ArmClimber implements Subsystem {
     }
 
     //method for retracting climberLeia to be called in a command
-    public static void RetractLeia() {
+    public static void retractLeia() {
         m_Leia.set(false);
     }
 
     //method for retracting climberLuke to be called in a command
     public static void retractLuke() {
-        m_Leia.set(false);
+        m_Luke.set(false);
     }
 }
 
