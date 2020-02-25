@@ -13,6 +13,7 @@ import frc.team3130.robot.subsystems.*;
 import frc.team3130.robot.subsystems.climber.ArmClimber;
 import frc.team3130.robot.subsystems.climber.Winch;
 import frc.team3130.robot.vision.Limelight;
+import frc.team3130.robot.commands.Turret.AdjustRPM;
 
 import static frc.team3130.robot.OI.driverGamepad;
 
@@ -53,10 +54,12 @@ public class Robot extends TimedRobot {
         //Register and instantiate subsystems (optionally with default commands)
         //Note: registerSubsystem is NOT needed if setDefaultCommand is used
         scheduler.setDefaultCommand(Chassis.getInstance(), new DefaultDrive());
+        scheduler.setDefaultCommand(Turret.getInstance(), new ManualTurretAim());
+        scheduler.setDefaultCommand(Turret.getInstance(), new AdjustRPM());
+
         scheduler.registerSubsystem(Winch.getInstance());
         scheduler.registerSubsystem(Intake.getInstance());
         scheduler.registerSubsystem(Hopper.getInstance());
-        scheduler.setDefaultCommand(Turret.getInstance(), new ManualTurretAim());
         scheduler.registerSubsystem(Flywheel.getInstance());
         scheduler.registerSubsystem(WheelOfFortune.getInstance());
 
