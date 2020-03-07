@@ -36,7 +36,7 @@ public class Intake implements Subsystem {
 
         m_intakeMotor.configFactoryDefault();
         m_intakeMotor.setNeutralMode(NeutralMode.Coast);
-        m_intakeMotor.overrideLimitSwitchesEnable(false);
+        m_intakeMotor.overrideLimitSwitchesEnable(true);
 
         m_intakeSolenoid = new Solenoid(RobotMap.CAN_PNMMODULE, RobotMap.PNM_INTAKE);
     }
