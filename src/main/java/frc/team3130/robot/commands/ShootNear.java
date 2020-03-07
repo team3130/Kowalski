@@ -61,11 +61,11 @@ public class ShootNear implements Command {
             }
             if (Hopper.isEmpty()) {
                 lastIndexTime = Timer.getFPGATimestamp();
-                Hopper.runHopperTop(0.20);
+                Hopper.runHopperTop(0.6);
                 Hopper.runHopperLeft(-0.5);
                 Hopper.runHopperRight(-0.6);
             } else {
-                Hopper.runHopperTop(0.0);
+                Hopper.runHopperTop(0.6);
                 Hopper.runHopperLeft(0.0);
                 Hopper.runHopperRight(0.0);
                 if (Timer.getFPGATimestamp() - lastIndexTime > 0.1) {
@@ -84,7 +84,7 @@ public class ShootNear implements Command {
                         isShooting = false;
                     }
                 } else {
-                    Hopper.runHopperTop(0.0);
+                    Hopper.runHopperTop(0.6);
                     justShot = true;
                     changedState = true;
                 }
