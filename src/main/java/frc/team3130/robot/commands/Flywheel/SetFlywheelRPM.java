@@ -21,6 +21,7 @@ public class SetFlywheelRPM implements Command {
      */
     @Override
     public void initialize() {
+        /*
         if (!Limelight.GetInstance().hasTrack()){
             Flywheel.setSpeed(3500.0);
         }else {
@@ -33,6 +34,7 @@ public class SetFlywheelRPM implements Command {
                 Flywheel.setSpeed(3500);
             }
         }
+        */
     }
 
     /**

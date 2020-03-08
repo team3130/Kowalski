@@ -2,7 +2,10 @@ package frc.team3130.robot.commands;
 
 import java.util.Set;
 
+import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Subsystem;
 import frc.team3130.robot.RobotMap;
@@ -20,6 +23,12 @@ public class Shoot implements Command {
     private boolean changedState;
     private boolean isShooting;
     private double lastIndexTime;
+
+    private ShuffleboardTab tab = Shuffleboard.getTab("Flywheel");
+
+    private NetworkTableEntry flywheelRPM =
+            tab.add("RPM", 7500.0)
+                    .getEntry();
 
     public Shoot() {
         this.subsystems = Set.of(Turret.getInstance(), Hopper.getInstance(), Flywheel.getInstance(), Hood.getInstance());
@@ -43,7 +52,7 @@ public class Shoot implements Command {
         Turret.hold();
 
         // Find the flywheel speed
-        if (!Limelight.GetInstance().hasTrack()){
+      /*  if (!Limelight.GetInstance().hasTrack()){
             Flywheel.setSpeed(3500.0);
         }else {
             double x = Limelight.GetInstance().getDistanceToTarget();
@@ -55,6 +64,9 @@ public class Shoot implements Command {
                 Flywheel.setSpeed(3500);
             }
         }
+
+       */
+        Flywheel.setSpeed(flywheelRPM.getDouble(7600.0));
     }
 
     /**
@@ -63,7 +75,7 @@ public class Shoot implements Command {
      */
     @Override
     public void execute() {
-        if (justShot) {
+       /*if (justShot) {
             if (changedState) {
                 lastIndexTime = Timer.getFPGATimestamp();
                 changedState = false;
@@ -99,6 +111,11 @@ public class Shoot implements Command {
                 }
             }
         }
+        
+        */
+        Hopper.runHopperTop(0.2);
+        Hopper.runHopperLeft(-0.5);
+        Hopper.runHopperRight(-0.6);
     }
 
     /**
