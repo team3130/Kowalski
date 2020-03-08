@@ -2,16 +2,14 @@ package frc.team3130.robot.commands.Hopper;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Subsystem;
-import frc.team3130.robot.OI;
-import frc.team3130.robot.RobotMap;
 import frc.team3130.robot.subsystems.Hopper;
 
 import java.util.Set;
 
-public class HopperOut implements Command {
+public class HopperIn implements Command {
     private final Set<Subsystem> subsystems;
 
-    public HopperOut() {
+    public HopperIn() {
         this.subsystems = Set.of(Hopper.getInstance());
     }
 
@@ -20,9 +18,9 @@ public class HopperOut implements Command {
      */
     @Override
     public void initialize() {
-        Hopper.runHopperLeft(-0.15);
-        Hopper.runHopperRight(0.15);
-        Hopper.runHopperTop(-0.4);
+        Hopper.runHopperLeft(0.4);
+        Hopper.runHopperRight(0.4);
+        Hopper.runHopperTop(0.4);
     }
 
     /**

@@ -182,5 +182,11 @@ public class Flywheel implements Subsystem {
 //        SmartDashboard.putBoolean("Flywheel canShoot", canShoot());
     }
 
+
+    public static void runFlywheel(double speed) {
+        m_flywheelMaster.set(speed);
+    }
+
 }
+
 

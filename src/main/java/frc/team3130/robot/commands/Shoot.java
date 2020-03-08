@@ -66,7 +66,7 @@ public class Shoot implements Command {
         }
 
        */
-        Flywheel.setSpeed(flywheelRPM.getDouble(7600.0));
+        Flywheel.setSpeed(flywheelRPM.getDouble(4600.0));
     }
 
     /**
@@ -113,11 +113,8 @@ public class Shoot implements Command {
         }
         
         */
-        Hopper.runHopperTop(0.2);
-        Hopper.runHopperLeft(-0.5);
-        Hopper.runHopperRight(-0.6);
+        Flywheel.runFlywheel(0.5);
     }
-
     /**
      * <p>
      * Returns whether this command has finished. Once a command finishes -- indicated by

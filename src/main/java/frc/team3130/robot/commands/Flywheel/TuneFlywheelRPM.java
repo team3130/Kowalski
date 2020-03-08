@@ -14,7 +14,7 @@ public class TuneFlywheelRPM implements Command {
     private ShuffleboardTab tab = Shuffleboard.getTab("Flywheel");
 
     private NetworkTableEntry flywheelRPM =
-            tab.add("RPM", 7500.0)
+            tab.add("RPM", 7600.0)
                     .getEntry();
 
 

@@ -7,6 +7,7 @@ import frc.team3130.robot.commands.Climber.DeployBigClimber;
 import frc.team3130.robot.commands.Climber.DeploySmallClimber;
 import frc.team3130.robot.commands.Flywheel.TuneFlywheelRPM;
 import frc.team3130.robot.commands.Hood.ToggleHood;
+import frc.team3130.robot.commands.Hopper.HopperIn;
 import frc.team3130.robot.commands.Hopper.HopperOut;
 import frc.team3130.robot.commands.Shoot;
 import frc.team3130.robot.commands.Intake.IntakeIn;
@@ -54,9 +55,10 @@ public class OI {
     private static JoystickTrigger intakeIn = new JoystickTrigger(driverGamepad, RobotMap.LST_AXS_LTRIGGER); // L trigger also deploys intake while active
 
 //    private static JoystickButton testColorAlignment = new JoystickButton(driverGamepad, RobotMap.LST_BTN_Y);
-    private static JoystickButton testFlywheel = new JoystickButton(driverGamepad, RobotMap.LST_BTN_RBUMPER); //R bumper
+ //   private static JoystickButton testFlywheel = new JoystickButton(driverGamepad, RobotMap.LST_BTN_RBUMPER); //R bumper
     private static JoystickButton shoot = new JoystickButton(driverGamepad, RobotMap.LST_BTN_RBUMPER); //R bumper
     private static JoystickButton hopperOut = new JoystickButton(driverGamepad, RobotMap.LST_BTN_LBUMPER); //L bumper
+    private static JoystickButton hopperIn = new JoystickButton(driverGamepad, RobotMap.LST_BTN_X);
     private static JoystickButton aimTurret = new JoystickButton(driverGamepad, RobotMap.LST_BTN_RJOYSTICKPRESS); //R joystick press
     private static JoystickButton toggleIntake = new JoystickButton(driverGamepad, RobotMap.LST_BTN_MENU); //Menu button
     private static JoystickButton shift = new JoystickButton(driverGamepad, RobotMap.LST_BTN_LJOYSTICKPRESS); //L joystick press
@@ -92,13 +94,13 @@ public class OI {
 //        testTestHSB.whenHeld(new TestHSB());
 
         aimTurret.whenPressed(new ToggleTurretAim());
-        testFlywheel.whenHeld(new TuneFlywheelRPM());
+ //       testFlywheel.whenHeld(new TuneFlywheelRPM());
 
 //        incrementShooterOffset.whenPressed(new IncrementRPM());
 //        decrementShooterOffset.whenPressed(new DecrementRPM());
 //        resetShooterOffset.whenPressed(new ResetRPM());
 
-
+        hopperIn.whileHeld(new HopperIn());
         toggleIntake.whenPressed(new ToggleIntake());
 
         toggleClimber.whenPressed(new DeploySmallClimber());
