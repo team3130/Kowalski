@@ -147,11 +147,6 @@ public class Shoot implements Command {
         justShot = true;
         changedState = true;
 
-        // Turn off hopper
-        Hopper.runHopperLeft(0.0);
-        Hopper.runHopperRight(0.0);
-        Hopper.runHopperTop(0.0);
-
         // Stop flywheel
         Flywheel.stop();
 
